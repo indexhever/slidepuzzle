@@ -6,7 +6,7 @@ using System;
 
 namespace Tests
 {
-    public class StubPieceComponent : MonoBehaviour, PieceMover, Piece
+    public class StubGridItemComponent : MonoBehaviour, GridItemMover, GridItem
     {
         private float widthInUnit = 5;
         private float heightInUnit = 6;

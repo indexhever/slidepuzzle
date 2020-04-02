@@ -142,21 +142,21 @@ namespace Tests
             return new PieceDestinationControllerImplementation(pieceTranslationController);
         }
 
-        private PieceTranslationController CreatePieceTranslationController(PieceMover pieceMover)
+        private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)
         {
             return new StubPieceTranslationController(pieceMover);
         }
 
-        private PieceMover CreatePieceMover()
+        private GridItemMover CreatePieceMover()
         {
-            PieceFactory pieceFactory = CreatePieceFactory();
+            GridItemFactory pieceFactory = CreatePieceFactory();
             GameObject pieceObject = pieceFactory.Create();
-            return pieceObject.GetComponent<PieceMover>();
+            return pieceObject.GetComponent<GridItemMover>();
         }
 
-        private PieceFactory CreatePieceFactory()
+        private GridItemFactory CreatePieceFactory()
         {
-            return new StubPieceFactory();
+            return new StubGridItemFactory();
         }
 
         private Positioner CreateSlotPositioner(Vector2 pieceDestinePosition)

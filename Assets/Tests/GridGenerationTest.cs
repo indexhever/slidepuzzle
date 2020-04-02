@@ -18,47 +18,47 @@ namespace Tests
 
             Assert.AreEqual(3, grid.Width);
             Assert.AreEqual(3, grid.Height);
-            Assert.IsNotNull(grid.PieceObjects);
-            Assert.AreEqual(9, grid.PieceObjects.Count);
+            Assert.IsNotNull(grid.GridItemObjects);
+            Assert.AreEqual(9, grid.GridItemObjects.Count);
         }
 
         [Test]
-        public void FirstAndSecondPieceAreNotNull()
+        public void FirstAndSecondGridItemAreNotNull()
         {
             Vector2 originPosition = new Vector2(0, 0);
             Game.Grid grid = CreateGrid(3, 3, 2, originPosition);
 
-            GameObject firstPieceObject = grid.PieceObjects[0];
-            GameObject secondPieceObject = grid.PieceObjects[1];
+            GameObject firstGridItemObject = grid.GridItemObjects[0];
+            GameObject secondGridItemObject = grid.GridItemObjects[1];
 
-            Assert.IsNotNull(firstPieceObject);
-            Assert.IsNotNull(secondPieceObject);
+            Assert.IsNotNull(firstGridItemObject);
+            Assert.IsNotNull(secondGridItemObject);
         }
 
         [Test]
-        public void GetCreatedPieces()
+        public void GetCreatedGridItems()
         {
             Vector2 originPosition = new Vector2(0, 0);
             Game.Grid grid = CreateGrid(3, 3, 2, originPosition);
 
-            GameObject firstPieceObject = grid.PieceObjects[0];
-            GameObject secondPieceObject = grid.PieceObjects[1];
-            GameObject thirdPieceObject = grid.PieceObjects[2];
+            GameObject firstGridItemObject = grid.GridItemObjects[0];
+            GameObject secondGridItemObject = grid.GridItemObjects[1];
+            GameObject thirdGridItemObject = grid.GridItemObjects[2];
 
-            PieceMover firstPieceMover = firstPieceObject.GetComponent<PieceMover>();
-            Piece firstPiece = firstPieceObject.GetComponent<Piece>();
-            PieceMover secondPieceMover = secondPieceObject.GetComponent<PieceMover>();
-            Piece secondPiece = secondPieceObject.GetComponent<Piece>();
-            PieceMover thirdPieceMover = thirdPieceObject.GetComponent<PieceMover>();
-            Piece thirdPiece = thirdPieceObject.GetComponent<Piece>();
+            GridItemMover firstGridItemMover = firstGridItemObject.GetComponent<GridItemMover>();
+            GridItem firstGridItem = firstGridItemObject.GetComponent<GridItem>();
+            GridItemMover secondGridItemMover = secondGridItemObject.GetComponent<GridItemMover>();
+            GridItem secondGridItem = secondGridItemObject.GetComponent<GridItem>();
+            GridItemMover thirdGridItemMover = thirdGridItemObject.GetComponent<GridItemMover>();
+            GridItem thirdGridItem = thirdGridItemObject.GetComponent<GridItem>();
 
-            Assert.AreEqual(5, firstPiece.WidthInUnit);
-            Assert.AreEqual(6, firstPiece.HeightInUnit);
-            Assert.AreNotEqual(secondPieceMover.Position, thirdPieceMover.Position);
-            Assert.AreNotEqual(firstPieceMover.Position, secondPieceMover.Position);            
-            //Assert.AreEqual(new Vector2(-10.5f, 12), firstPieceMover.Position);
-            Assert.AreEqual(firstPieceMover.Position + new Vector2(secondPiece.WidthInUnit + 2, 0), secondPieceMover.Position);
-            Assert.AreEqual(secondPieceMover.Position + new Vector2(thirdPiece.WidthInUnit + 2, 0), thirdPieceMover.Position);
+            Assert.AreEqual(5, firstGridItem.WidthInUnit);
+            Assert.AreEqual(6, firstGridItem.HeightInUnit);
+            Assert.AreNotEqual(secondGridItemMover.Position, thirdGridItemMover.Position);
+            Assert.AreNotEqual(firstGridItemMover.Position, secondGridItemMover.Position);            
+            //Assert.AreEqual(new Vector2(-10.5f, 12), firstGridItemMover.Position);
+            Assert.AreEqual(firstGridItemMover.Position + new Vector2(secondGridItem.WidthInUnit + 2, 0), secondGridItemMover.Position);
+            Assert.AreEqual(secondGridItemMover.Position + new Vector2(thirdGridItem.WidthInUnit + 2, 0), thirdGridItemMover.Position);
         }
 
         [Test]
@@ -67,16 +67,16 @@ namespace Tests
             float offset = 2;
             Vector2 originPosition = new Vector2(0, 0);
             Game.Grid grid = CreateGrid(3, 3, offset, originPosition);
-            PieceFactory pieceFactory = CreatePieceFactory();
+            GridItemFactory gridItemFactory = CreateGridItemFactory();
 
-            float pieceWidthInUnit = pieceFactory.PieceWidthInUnit;
-            float pieceHeightInUnit = pieceFactory.PieceHeightInUnit;
+            float gridItemWidthInUnit = gridItemFactory.GridItemWidthInUnit;
+            float gridItemHeightInUnit = gridItemFactory.GridItemHeightInUnit;
             int amountOfGridColumns = grid.Width;
             int amountOfGridRows = grid.Height;
             Vector2 gridOrigin = grid.Position;
-            Vector2 piceMeasuresInUnit = new Vector2(pieceWidthInUnit, pieceHeightInUnit);
+            Vector2 piceMeasuresInUnit = new Vector2(gridItemWidthInUnit, gridItemHeightInUnit);
             
-            PiecePositioningStrategy positioningStrategy = CreateCenterPositioningStrategy
+            GridItemPositioningStrategy positioningStrategy = CreateCenterPositioningStrategy
             (
                 amountOfGridColumns, 
                 amountOfGridRows, 
@@ -85,32 +85,32 @@ namespace Tests
                 offset
             );
 
-            GameObject pieceObject = pieceFactory.Create();
-            Piece piece = pieceObject.GetComponent<Piece>();
-            PieceMover pieceMover = pieceObject.GetComponent<PieceMover>();
+            GameObject gridItemObject = gridItemFactory.Create();
+            GridItem gridItem = gridItemObject.GetComponent<GridItem>();
+            GridItemMover gridItemMover = gridItemObject.GetComponent<GridItemMover>();
 
-            Assert.IsNotNull(piece);
-            Assert.IsNotNull(pieceMover);
+            Assert.IsNotNull(gridItem);
+            Assert.IsNotNull(gridItemMover);
 
-            pieceMover.Position = positioningStrategy.GetPiecePositionByRowAndColum(0, 0);
+            gridItemMover.Position = positioningStrategy.GetGridItemPositionByRowAndColum(0, 0);
 
-            Assert.AreEqual(pieceWidthInUnit, piece.WidthInUnit);
-            Assert.AreEqual(pieceHeightInUnit, piece.HeightInUnit);
-            //Assert.AreEqual(new Vector2(-10.5f, 12), pieceMover.Position);
+            Assert.AreEqual(gridItemWidthInUnit, gridItem.WidthInUnit);
+            Assert.AreEqual(gridItemHeightInUnit, gridItem.HeightInUnit);
+            //Assert.AreEqual(new Vector2(-10.5f, 12), gridItemMover.Position);
         }
 
         private Game.Grid CreateGrid(int width, int height, float offset, Vector2 originPosition)
         {
-            PieceFactory pieceFactory = CreatePieceFactory();
-            return new Game.Grid(width, height, pieceFactory, offset, originPosition);
+            GridItemFactory gridItemFactory = CreateGridItemFactory();
+            return new Game.Grid(width, height, gridItemFactory, offset, originPosition);
         }
 
-        private PieceFactory CreatePieceFactory()
+        private GridItemFactory CreateGridItemFactory()
         {
-            return new StubPieceFactory();
+            return new StubGridItemFactory();
         }
 
-        private PiecePositioningStrategy CreateCenterPositioningStrategy(int amountOfGridColumns, int amountOfGridRows, Vector2 gridOrigin, Vector2 piceMeasuresInUnit, float offset)
+        private GridItemPositioningStrategy CreateCenterPositioningStrategy(int amountOfGridColumns, int amountOfGridRows, Vector2 gridOrigin, Vector2 piceMeasuresInUnit, float offset)
         {
             return new CenterPositioningStrategy(amountOfGridColumns, amountOfGridRows, gridOrigin, piceMeasuresInUnit, offset);
         }

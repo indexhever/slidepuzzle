@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface PieceFactory
+    public interface GridItemFactory
     {
-        float PieceWidthInUnit { get; }
-        float PieceHeightInUnit { get; }
+        float GridItemWidthInUnit { get; }
+        float GridItemHeightInUnit { get; }
         GameObject Create();
     }
 }

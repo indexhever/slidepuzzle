@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class PieceComponent : MonoBehaviour, PieceMover, Piece
+    public class GridItemComponent : MonoBehaviour, GridItemMover, GridItem
     {
         [SerializeField]
         private SpriteRenderer spriteRenderer;

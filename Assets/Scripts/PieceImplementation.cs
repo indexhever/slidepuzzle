@@ -8,9 +8,9 @@ namespace Game
     {
         private int row;
         private int column;
-        private PieceMover pieceMover;
+        private GridItemMover pieceMover;
 
-        public PieceImplementation(PieceMover pieceMover)
+        public PieceImplementation(GridItemMover pieceMover)
         {
             this.pieceMover = pieceMover;
             Row = pieceMover.Row;

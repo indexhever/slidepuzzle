@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface PieceMover
+    public interface GridItemMover
     {
         int Row { get; }
         int Column { get; }
