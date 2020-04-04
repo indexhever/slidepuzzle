@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Game
 {
-    public class GridItemFactoryImplementation : GridItemFactory
+    public class SlotFactoryImplementation : GridItemFactory
     {
         private GameObject gridItemObjectPrefab;
+        private SlotSelection slotSelection;
 
-        public GridItemFactoryImplementation(GameObject gridItemObjectPrefab)
+        public SlotFactoryImplementation(GameObject gridItemObjectPrefab, SlotSelection slotSelection)
         {
             this.gridItemObjectPrefab = gridItemObjectPrefab;
             GridItem gridItem = gridItemObjectPrefab.GetComponent<GridItem>();
@@ -27,8 +28,10 @@ namespace Game
 
         public GameObject Create()
         {
-            GameObject gridItemMoverObject = GameObject.Instantiate(gridItemObjectPrefab);
-            return gridItemMoverObject;
+            GameObject gridItemObject = GameObject.Instantiate(gridItemObjectPrefab);
+            SlotComponent slotComponent = gridItemObject.GetComponent<SlotComponent>();
+            slotComponent.Construct(slotSelection);
+            return gridItemObject;
         }
     }
 }
