@@ -1,13 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
-    public class PieceFactoryImplementation : GridItemFactory
+    public class SlotFactoryImplementation : GridItemFactory
     {
         private GameObject gridItemObjectPrefab;
+        private SlotSelection slotSelection;
 
-        public PieceFactoryImplementation(GameObject gridItemObjectPrefab)
+        public SlotFactoryImplementation(GameObject gridItemObjectPrefab, SlotSelection slotSelection)
         {
             this.gridItemObjectPrefab = gridItemObjectPrefab;
             GridItem gridItem = gridItemObjectPrefab.GetComponent<GridItem>();
@@ -27,8 +29,8 @@ namespace Game
         public GameObject Create()
         {
             GameObject gridItemObject = GameObject.Instantiate(gridItemObjectPrefab);
-            PieceComponent pieceComponent = gridItemObject.GetComponent<PieceComponent>();
-            pieceComponent.Construct();
+            SlotComponent slotComponent = gridItemObject.GetComponent<SlotComponent>();
+            slotComponent.Construct(slotSelection);
             return gridItemObject;
         }
     }

@@ -6,9 +6,9 @@ namespace Tests
 {
     public class StubPieceTranslationController : PieceTranslationController
     {
-        private PieceMover pieceMover;
+        private GridItemMover pieceMover;
 
-        public StubPieceTranslationController(PieceMover pieceMover)
+        public StubPieceTranslationController(GridItemMover pieceMover)
         {
             this.pieceMover = pieceMover;
         }

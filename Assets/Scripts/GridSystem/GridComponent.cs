@@ -7,21 +7,20 @@ namespace Game
     public class GridComponent : MonoBehaviour
     {
         private Grid grid;
-        private PieceFactoryImplementation pieceFactory;
 
-        [SerializeField]
-        private GameObject pieceObjectPrefab;
         [SerializeField]
         private int width;
         [SerializeField]
         private int height;
         [SerializeField]
         private float offset;
+        [SerializeField]
+        private GridItemFactoryComponent gridItemFactoryComponent;
 
+        // TODO: inject grid item factory
         private void Start()
         {
-            pieceFactory = new PieceFactoryImplementation(pieceObjectPrefab);
-            grid = new Grid(width, height, pieceFactory, offset, transform.position);
+            grid = new Grid(width, height, gridItemFactoryComponent, offset, transform.position);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Tests
         public void MovingFromOneSlotToAnother()
         {
             Vector2 pieceDestinePosition = new Vector2(1, 2);
-            PieceMover pieceMover = CreatePieceMover();
+            GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
             PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController);
 
@@ -26,7 +26,7 @@ namespace Tests
         [Test]
         public void PieceTranslation()
         {
-            PieceMover pieceMover = CreatePieceMover();
+            GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
             Vector2 newPiecePosition = new Vector2(1, 2);
 
@@ -39,7 +39,7 @@ namespace Tests
         public void MovePieceWhenDestinationControlerIsMovingState()
         {
             Vector2 pieceDestinePosition = new Vector2(1, 2);
-            PieceMover pieceMover = CreatePieceMover();
+            GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
             PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController);
             pieceDestinationController.SetMovable();
@@ -55,7 +55,7 @@ namespace Tests
             //TODO: Slot tem que dar a posição dele e não da peça, pq tem slots q não possuem peça
             Vector2 pieceDestinePosition = new Vector2(1, 2);
             SlotSelection slotSelection = CreateSlotSelection();
-            PieceMover pieceMover = CreatePieceMover();
+            GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController firstPieceTranslationController = CreatePieceTranslationController(pieceMover);
             PieceDestinationController firstPieceDestinationController = CreatePieceDestinationController(firstPieceTranslationController);
             firstPieceDestinationController.SetMovable();
@@ -87,21 +87,21 @@ namespace Tests
             return new StubPositioner(pieceDestinePosition);
         }
 
-        private PieceTranslationController CreatePieceTranslationController(PieceMover pieceMover)
+        private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)
         {
             return new StubPieceTranslationController(pieceMover);
         }
 
-        private PieceMover CreatePieceMover()
+        private GridItemMover CreatePieceMover()
         {
-            PieceFactory pieceFactory = CreatePieceFactory();
+            GridItemFactory pieceFactory = CreatePieceFactory();
             GameObject pieceObject = pieceFactory.Create();
-            return pieceObject.GetComponent<PieceMover>();
+            return pieceObject.GetComponent<GridItemMover>();
         }
 
-        private PieceFactory CreatePieceFactory()
+        private GridItemFactory CreatePieceFactory()
         {
-            return new StubPieceFactory();
+            return new StubGridItemFactory();
         }
 
         private PieceDestinationController CreatePieceDestinationController(PieceTranslationController pieceTranslationController)

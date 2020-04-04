@@ -4,10 +4,24 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface PieceFactory
+    public class PieceFactory : GridItemFactoryComponent
     {
-        float PieceWidthInUnit { get; }
-        float PieceHeightInUnit { get; }
-        GameObject Create();
+        private GridItemFactory gridItemFactory;
+
+        [SerializeField]
+        private GameObject piecePrefab;
+
+        public override float GridItemWidthInUnit => gridItemFactory.GridItemWidthInUnit;
+        public override float GridItemHeightInUnit => gridItemFactory.GridItemHeightInUnit;
+        
+        public void Construct()
+        {
+            gridItemFactory = new PieceFactoryImplementation(piecePrefab);
+        }
+
+        public override GameObject Create()
+        {
+            return gridItemFactory.Create();
+        }
     }
 }
