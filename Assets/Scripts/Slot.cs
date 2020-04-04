@@ -5,6 +5,8 @@ namespace Game
 {
     public interface Slot
     {
+        PieceMover PieceMover { get; }
+
         void Touch();
     }
 }

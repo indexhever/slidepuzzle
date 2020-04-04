@@ -13,13 +13,8 @@ namespace Game
 
         public override float GridItemWidthInUnit => gridItemFactory.GridItemWidthInUnit;
         public override float GridItemHeightInUnit => gridItemFactory.GridItemHeightInUnit;
-
-        private void Start()
-        {
-            Construct();
-        }
-
-        private void Construct()
+        
+        public void Construct()
         {
             gridItemFactory = new PieceFactoryImplementation(piecePrefab);
         }

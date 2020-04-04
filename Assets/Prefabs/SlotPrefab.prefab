@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7127949694248627544}
   - component: {fileID: 2745480415366537161}
   - component: {fileID: -3080525390099045667}
+  - component: {fileID: 2077007360239691554}
   m_Layer: 8
   m_Name: SlotPrefab
   m_TagString: Untagged
@@ -132,5 +133,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42719596ffca0564b9cd71bd4b798f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceDestinationController: {fileID: 2077007360239691554}
+--- !u!114 &2077007360239691554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173772062928293580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb1147b1497cf349b014530314fc10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

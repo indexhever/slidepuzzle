@@ -8,6 +8,7 @@ namespace Game
         private SlotSelection slotSelection;
         private PieceDestinationController pieceDestinationController;
         private Positioner positioner;
+        private PieceMover pieceMover;
 
         public SlotImplementation(SlotSelection slotSelection)
         {
@@ -40,6 +41,8 @@ namespace Game
                 return positioner.Position;
             }
         }
+
+        public PieceMover PieceMover => pieceMover;
 
         public bool CanMovePiece()
         {
