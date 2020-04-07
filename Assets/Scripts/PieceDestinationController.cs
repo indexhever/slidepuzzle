@@ -9,6 +9,7 @@ namespace Game
 
         void SetEmpty();
         void SetMovable();
+        void SetFixed();
         // Actions
         Vector2 GetPosition();
         void MovePieceToDestinePosition(Vector2 destinePosition);

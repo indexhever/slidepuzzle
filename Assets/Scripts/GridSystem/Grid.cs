@@ -26,6 +26,11 @@ namespace Game
             CreateGridItems();
         }
 
+        public GameObject GetGridItemObjectByRowColumn(int row, int column)
+        {
+            return GridItemObjects[row * Width + column];
+        }
+
         public int Width
         {
             get

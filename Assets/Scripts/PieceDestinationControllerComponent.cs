@@ -62,6 +62,11 @@ namespace Game
             pieceDestinationController.SetMovable();
         }
 
+        public void SetFixed()
+        {
+            pieceDestinationController.SetFixed();
+        }
+
         public void TakePiece()
         {
             pieceDestinationController.TakePiece();

@@ -7,12 +7,15 @@ namespace Game
     {
         private readonly SlotState EMPTY_STATE;
         private readonly SlotState MOVABLE_STATE;
+        private readonly SlotState FIXED_STATE;
         private PieceTranslationController pieceTranslationController;
 
         public PieceDestinationControllerImplementation()
         {
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
         }
 
         public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController)
@@ -20,6 +23,8 @@ namespace Game
             this.pieceTranslationController = pieceTranslationController;
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
         }
 
         public SlotState State { get; set; }
@@ -55,6 +60,11 @@ namespace Game
         public void SetMovable()
         {
             State = MOVABLE_STATE;
+        }
+
+        public void SetFixed()
+        {
+            State = FIXED_STATE;
         }
 
         public bool CanMovePiece()

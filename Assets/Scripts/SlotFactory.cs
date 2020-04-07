@@ -25,11 +25,12 @@ namespace Game
 
         public void Construct()
         {
-            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelectionComponent);
+            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelectionComponent, pieceFactory);
         }
 
         public override GameObject Create()
         {
+            /*
             GameObject slotObject = gridItemFactory.Create();
             GameObject pieceObject = pieceFactory.Create();
             pieceObject.transform.position = slotObject.transform.position;
@@ -41,8 +42,9 @@ namespace Game
             PieceTranslationControllerComponent pieceTranslationController = pieceObject.GetComponent<PieceTranslationControllerComponent>();
 
             pieceDestinationController.Construct(pieceTranslationController);
-            
             return slotObject;
+             */
+            return gridItemFactory.Create();            
         }
     }
 }
