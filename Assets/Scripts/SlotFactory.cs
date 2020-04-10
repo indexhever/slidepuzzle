@@ -14,6 +14,8 @@ namespace Game
         private SlotSelectionComponent slotSelectionComponent;
         [SerializeField]
         private GridItemFactoryComponent pieceFactory;
+        [SerializeField]
+        private GridImplementation grid;
 
         public override float GridItemHeightInUnit => gridItemFactory.GridItemHeightInUnit;
         public override float GridItemWidthInUnit => gridItemFactory.GridItemWidthInUnit;
@@ -30,20 +32,6 @@ namespace Game
 
         public override GameObject Create()
         {
-            /*
-            GameObject slotObject = gridItemFactory.Create();
-            GameObject pieceObject = pieceFactory.Create();
-            pieceObject.transform.position = slotObject.transform.position;
-            pieceObject.transform.SetParent(slotObject.transform);
-            SlotComponent slotComponent = slotObject.GetComponent<SlotComponent>();
-            slotComponent.Construct(slotSelectionComponent);
-
-            PieceDestinationControllerComponent pieceDestinationController = slotObject.GetComponent<PieceDestinationControllerComponent>();
-            PieceTranslationControllerComponent pieceTranslationController = pieceObject.GetComponent<PieceTranslationControllerComponent>();
-
-            pieceDestinationController.Construct(pieceTranslationController);
-            return slotObject;
-             */
             return gridItemFactory.Create();            
         }
     }

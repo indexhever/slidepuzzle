@@ -388,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotFactory: {fileID: 279255423}
   pieceFactory: {fileID: 1192876064}
+  slotGrid: {fileID: 389215170}
 --- !u!4 &727200328
 Transform:
   m_ObjectHideFlags: 0

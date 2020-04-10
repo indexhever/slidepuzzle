@@ -21,6 +21,8 @@ namespace Tests
             }
         }
 
+        public GameObject PieceObject => throw new System.NotImplementedException();
+
         public void TranslateToPosition(Vector2 newPiecePosition)
         {
             pieceMover.Position = newPiecePosition;

@@ -5,9 +5,11 @@ namespace Game
 {
     public class PieceDestinationControllerImplementation : PieceDestinationController
     {
+        private readonly PieceTranslationController NULL_TRANSLATION_CONTROLLER;
         private readonly SlotState EMPTY_STATE;
         private readonly SlotState MOVABLE_STATE;
         private readonly SlotState FIXED_STATE;
+
         private PieceTranslationController pieceTranslationController;
 
         public PieceDestinationControllerImplementation()
@@ -21,6 +23,7 @@ namespace Game
         public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController)
         {
             this.pieceTranslationController = pieceTranslationController;
+            NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
             FIXED_STATE = new FixedState();
@@ -36,6 +39,14 @@ namespace Game
                 return pieceTranslationController.CurrentPiecePosition;
             }
         }
+
+        public GameObject Piece
+        {
+            get
+            {
+                return pieceTranslationController.PieceObject;
+            }
+        } 
 
         public void ReceivePiece()
         {
@@ -85,6 +96,11 @@ namespace Game
         public void MovePieceToDestinePosition(Vector2 destinePosition)
         {
             pieceTranslationController.TranslateToPosition(destinePosition);
+        }
+
+        public void Clean()
+        {
+            pieceTranslationController = NULL_TRANSLATION_CONTROLLER;
         }
     }
 }

@@ -19,6 +19,8 @@ namespace Game
             }
         }
 
+        public GameObject PieceObject => gameObject;
+
         // TODO: Criar translação por tempo
         public void TranslateToPosition(Vector2 newPiecePosition)
         {

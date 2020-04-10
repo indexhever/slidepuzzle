@@ -6,6 +6,7 @@ namespace Game
     public interface PieceDestinationController : SlotSelectionServer
     {
         SlotState State { get; set; }
+        GameObject Piece { get; }
 
         void SetEmpty();
         void SetMovable();
@@ -13,5 +14,6 @@ namespace Game
         // Actions
         Vector2 GetPosition();
         void MovePieceToDestinePosition(Vector2 destinePosition);
+        void Clean();
     }
 }

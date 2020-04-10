@@ -20,7 +20,9 @@ namespace Game
             int randomColumn = Random.Range(0, slotGrid.Width);
             GameObject randomSlot = slotGrid.GetGridItemObjectByRowColumn(randomRow, randomColumn);
             PieceDestinationController pieceDestinationController = randomSlot.GetComponent<PieceDestinationController>();
+            GameObject.Destroy(pieceDestinationController.Piece);
             pieceDestinationController.SetEmpty();
+            pieceDestinationController.Clean();
 
             return randomSlot;
         }

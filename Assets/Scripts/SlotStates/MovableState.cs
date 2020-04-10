@@ -19,6 +19,7 @@ namespace Game
         {
             pieceDestinationController.SetEmpty();
             pieceDestinationController.MovePieceToDestinePosition(pieceDestinePosition);
+            pieceDestinationController.Clean();
         }
     }
 }

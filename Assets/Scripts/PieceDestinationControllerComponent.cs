@@ -22,8 +22,11 @@ namespace Game
 
         public Vector2 Position => pieceDestinationController.Position;
 
+        public GameObject Piece => pieceDestinationController.Piece;
+
         public void Construct(PieceTranslationController pieceTranslationController)
         {
+
             pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController);
         }
 
@@ -75,6 +78,11 @@ namespace Game
         public void TakePiece(Vector2 pieceDestinePosition)
         {
             pieceDestinationController.TakePiece(pieceDestinePosition);
+        }
+
+        public void Clean()
+        {
+            pieceDestinationController.Clean();
         }
     }
 }

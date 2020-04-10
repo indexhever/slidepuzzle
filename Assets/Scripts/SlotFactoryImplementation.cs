@@ -13,10 +13,12 @@ namespace Game
         public SlotFactoryImplementation(GameObject gridItemObjectPrefab, SlotSelection slotSelection, GridItemFactory pieceFactory)
         {
             this.gridItemObjectPrefab = gridItemObjectPrefab;
+            this.slotSelection = slotSelection;
+            this.pieceFactory = pieceFactory;
+
             GridItem gridItem = gridItemObjectPrefab.GetComponent<GridItem>();
             GridItemWidthInUnit = gridItem.WidthInUnit;
-            GridItemHeightInUnit = gridItem.HeightInUnit;
-            this.pieceFactory = pieceFactory;
+            GridItemHeightInUnit = gridItem.HeightInUnit;            
         }
 
         public float GridItemWidthInUnit
@@ -30,13 +32,6 @@ namespace Game
 
         public GameObject Create()
         {
-            /*
-            GameObject gridItemObject = GameObject.Instantiate(gridItemObjectPrefab);
-            SlotComponent slotComponent = gridItemObject.GetComponent<SlotComponent>();
-            slotComponent.Construct(slotSelection);
-            return gridItemObject;
-            */
-
             GameObject slotObject = InstantiateSlotObject();
             GameObject pieceObject = pieceFactory.Create();
             pieceObject.transform.position = slotObject.transform.position;

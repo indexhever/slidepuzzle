@@ -13,28 +13,27 @@ namespace Tests
         [Test]
         public void SetEmptyStateToRandomSlot()
         {
-            Game.Grid slotGrid = CreateSlotGrid();
+            Game.GridImplementation slotGrid = CreateSlotGrid();
             SlotSorting slotSorting = CreateSlotSortingToGrid(slotGrid);
 
             GameObject randomSlotObject = slotSorting.GetRandomEmptySlotObject();
             PieceDestinationController randomSlotPieceDestinationController = randomSlotObject.GetComponent<PieceDestinationController>();
 
             Assert.IsTrue(randomSlotPieceDestinationController.State is EmptyState);
+            Assert.IsNull(randomSlotPieceDestinationController.Piece);
         }
-
-        // TODO: deletar piece do slot achado
 
         // TODO: setar vizinhos do slot empty como movable
 
-        private Game.Grid CreateSlotGrid()
+        private Game.GridImplementation CreateSlotGrid()
         {
             return CreateGrid(3, 3, 1, new Vector2(0, 0));
         }
 
-        private Game.Grid CreateGrid(int width, int height, float offset, Vector2 originPosition)
+        private Game.GridImplementation CreateGrid(int width, int height, float offset, Vector2 originPosition)
         {
             GridItemFactory gridItemFactory = CreateGridItemFactory();
-            return new Game.Grid(width, height, gridItemFactory, offset, originPosition);
+            return new Game.GridImplementation(width, height, gridItemFactory, offset, originPosition);
         }
 
         private GridItemFactory CreateGridItemFactory()
@@ -66,7 +65,7 @@ namespace Tests
             return Resources.Load("StubSlotPrefab") as GameObject;
         }
 
-        private SlotSorting CreateSlotSortingToGrid(Game.Grid slotGrid)
+        private SlotSorting CreateSlotSortingToGrid(Game.GridImplementation slotGrid)
         {
             return new SlotSortingImplementation(slotGrid);
         }
