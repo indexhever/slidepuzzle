@@ -138,8 +138,9 @@ namespace Tests
 
         private PieceDestinationController CreatePieceDestinationController()
         {
-            PieceTranslationController pieceTranslationController = CreatePieceTranslationController(CreatePieceMover());
-            return new PieceDestinationControllerImplementation(pieceTranslationController);
+            GridItemMover pieceMover = CreatePieceMover();
+            PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover);
         }
 
         private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)

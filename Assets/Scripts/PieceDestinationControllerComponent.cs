@@ -8,6 +8,9 @@ namespace Game
     {
         private PieceDestinationController pieceDestinationController;
 
+        [SerializeField]
+        private GridItemComponent gridItemComponent;
+
         public SlotState State
         {
             get
@@ -26,8 +29,7 @@ namespace Game
 
         public void Construct(PieceTranslationController pieceTranslationController)
         {
-
-            pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController);
+            pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController, gridItemComponent);
         }
 
         public bool CanMovePiece()

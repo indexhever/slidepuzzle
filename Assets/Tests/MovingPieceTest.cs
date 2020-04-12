@@ -8,7 +8,7 @@ using System;
 
 namespace Tests
 {
-    public class MovingPieceTest
+    public class MovingPieceTest : ItemNeighborRetriever
     {
         [Test]
         public void MovingFromOneSlotToAnother()
@@ -16,7 +16,7 @@ namespace Tests
             Vector2 pieceDestinePosition = new Vector2(1, 2);
             GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
-            PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController);
+            PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController, pieceMover);
 
             pieceDestinationController.MovePieceToDestinePosition(pieceDestinePosition);
 
@@ -41,7 +41,7 @@ namespace Tests
             Vector2 pieceDestinePosition = new Vector2(1, 2);
             GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
-            PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController);
+            PieceDestinationController pieceDestinationController = CreatePieceDestinationController(pieceTranslationController, pieceMover);
             pieceDestinationController.SetMovable();
 
             pieceDestinationController.TakePiece(pieceDestinePosition);
@@ -57,12 +57,12 @@ namespace Tests
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController firstPieceTranslationController = CreatePieceTranslationController(pieceMover);
-            PieceDestinationController firstPieceDestinationController = CreatePieceDestinationController(firstPieceTranslationController);
+            PieceDestinationController firstPieceDestinationController = CreatePieceDestinationController(firstPieceTranslationController, pieceMover);
             firstPieceDestinationController.SetMovable();
             Positioner slotPositioner = CreateSlotPositioner(pieceDestinePosition);
             Slot slot1 = CreateSlot(slotSelection, firstPieceDestinationController, slotPositioner);
             PieceTranslationController secondPieceTranslationController = CreatePieceTranslationController(null);
-            PieceDestinationController secondPieceDestinationController = CreatePieceDestinationController(secondPieceTranslationController);
+            PieceDestinationController secondPieceDestinationController = CreatePieceDestinationController(secondPieceTranslationController, pieceMover);
             secondPieceDestinationController.SetEmpty();
             Positioner slotPositioner2 = CreateSlotPositioner(pieceDestinePosition);
             Slot slot2 = CreateSlot(slotSelection, secondPieceDestinationController, slotPositioner2);
@@ -96,7 +96,9 @@ namespace Tests
         {
             GridItemFactory pieceFactory = CreatePieceFactory();
             GameObject pieceObject = pieceFactory.Create();
-            return pieceObject.GetComponent<GridItemMover>();
+            StubGridItemComponent gridItemMover = pieceObject.GetComponent<GridItemMover>() as StubGridItemComponent;
+
+            return gridItemMover;
         }
 
         private GridItemFactory CreatePieceFactory()
@@ -104,9 +106,9 @@ namespace Tests
             return new StubGridItemFactory();
         }
 
-        private PieceDestinationController CreatePieceDestinationController(PieceTranslationController pieceTranslationController)
+        private PieceDestinationController CreatePieceDestinationController(PieceTranslationController pieceTranslationController, GridItemMover pieceMover)
         {
-            return new PieceDestinationControllerImplementation(pieceTranslationController);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover);
         }
 
         private SlotSelection CreateSlotSelection()
@@ -117,6 +119,11 @@ namespace Tests
         private Slot CreateSlot(SlotSelection slotSelection, PieceDestinationController pieceDestinationController, Positioner positioner = null)
         {
             return new SlotImplementation(slotSelection, pieceDestinationController, positioner);
+        }
+
+        public List<GameObject> GetItemNeighbors(GridItemMover item)
+        {
+            return new List<GameObject>();
         }
     }
 }

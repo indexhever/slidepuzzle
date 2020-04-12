@@ -32,16 +32,21 @@ namespace Tests
 
         private Game.GridImplementation CreateGrid(int width, int height, float offset, Vector2 originPosition)
         {
-            GridItemFactory gridItemFactory = CreateGridItemFactory();
-            return new Game.GridImplementation(width, height, gridItemFactory, offset, originPosition);
+            StubItemNeighborRetriever itemNeighborRetriever = CreateItemNeighborRetriever();
+            GridItemFactory gridItemFactory = CreateGridItemFactory(itemNeighborRetriever);
+            GridImplementation gridImplementation = new Game.GridImplementation(width, height, gridItemFactory, offset, originPosition);
+
+            itemNeighborRetriever.Initialize(gridImplementation);
+
+            return gridImplementation;
         }
 
-        private GridItemFactory CreateGridItemFactory()
+        private GridItemFactory CreateGridItemFactory(ItemNeighborRetriever itemNeighborRetriever)
         {
             GameObject slotPrefab = LoadSlotPrefab();
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemFactory pieceFactory = CreatePieceFactory();
-            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory);
+            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
         }
 
         private GridItemFactory CreatePieceFactory()
@@ -68,6 +73,11 @@ namespace Tests
         private SlotSorting CreateSlotSortingToGrid(Game.GridImplementation slotGrid)
         {
             return new SlotSortingImplementation(slotGrid);
+        }
+
+        private StubItemNeighborRetriever CreateItemNeighborRetriever()
+        {
+            return new StubItemNeighborRetriever();
         }
     }
 }

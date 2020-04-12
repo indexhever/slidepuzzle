@@ -11,5 +11,6 @@ namespace Game
         Vector2 Position { get; set; }
 
         void SetupRownAndColumn(int row, int column);
+        List<GameObject> GetNeighbors();
     }
 }

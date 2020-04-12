@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Game
 {
@@ -11,6 +12,7 @@ namespace Game
         private readonly SlotState FIXED_STATE;
 
         private PieceTranslationController pieceTranslationController;
+        private GridItemMover slotGridItemMover;
 
         public PieceDestinationControllerImplementation()
         {
@@ -23,6 +25,18 @@ namespace Game
         public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController)
         {
             this.pieceTranslationController = pieceTranslationController;
+            NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
+            EMPTY_STATE = new EmptyState();
+            MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
+        }
+
+        public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController, GridItemMover slotGridItemMover)
+        {
+            this.pieceTranslationController = pieceTranslationController;
+            this.slotGridItemMover = slotGridItemMover;
+            //this.grid = grid;
             NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
@@ -101,6 +115,18 @@ namespace Game
         public void Clean()
         {
             pieceTranslationController = NULL_TRANSLATION_CONTROLLER;
+            SetNeighborMovable();
+        }
+
+        private void SetNeighborMovable()
+        {
+            List<GameObject> neighbors = slotGridItemMover.GetNeighbors();
+
+            foreach(GameObject neighbor in neighbors)
+            {
+                PieceDestinationController currentNeighborPieceDestinationController = neighbor.GetComponent<PieceDestinationController>();
+                currentNeighborPieceDestinationController.SetMovable();
+            }
         }
     }
 }

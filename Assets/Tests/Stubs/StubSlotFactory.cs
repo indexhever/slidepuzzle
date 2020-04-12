@@ -14,9 +14,9 @@ namespace Tests
 
         public float GridItemHeightInUnit => 2;
 
-        public StubSlotFactory(GameObject slotPrefab, SlotSelection slotSelection)
+        public StubSlotFactory(GameObject slotPrefab, SlotSelection slotSelection, ItemNeighborRetriever itemNeighborRetriever)
         {
-            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory);
+            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
         }
 
         public GameObject Create()

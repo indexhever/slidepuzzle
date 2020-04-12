@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface Grid
+    public interface Grid : ItemNeighborRetriever
     {
         int Width { get; }
         int Height { get; }

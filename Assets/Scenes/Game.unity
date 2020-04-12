@@ -153,6 +153,7 @@ MonoBehaviour:
     type: 3}
   slotSelectionComponent: {fileID: 648137246}
   pieceFactory: {fileID: 1192876064}
+  grid: {fileID: 389215170}
 --- !u!4 &279255424
 Transform:
   m_ObjectHideFlags: 0

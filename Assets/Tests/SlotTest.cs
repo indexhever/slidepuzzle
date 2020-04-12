@@ -8,7 +8,7 @@ using System;
 
 namespace Tests
 {
-    public class SlotTest
+    public class SlotTest : ItemNeighborRetriever
     {
         [Test]
         public void Creation()
@@ -35,17 +35,23 @@ namespace Tests
 
         private GameObject CreateSlotObject()
         {
-            GridItemFactory slotFactory = CreateSlotFactory();
+            ItemNeighborRetriever itemNeighborRetriever = CreateItemNeighborRetriever();
+            GridItemFactory slotFactory = CreateSlotFactory(itemNeighborRetriever);
             return slotFactory.Create();
         }
 
-        private GridItemFactory CreateSlotFactory()
+        private ItemNeighborRetriever CreateItemNeighborRetriever()
+        {
+            return this;
+        }
+
+        private GridItemFactory CreateSlotFactory(ItemNeighborRetriever itemNeighborRetriever)
         {
             GameObject slotObjectPrefab = LoadSlotPrefab();
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemFactory pieceFactory = CreatePieceFactory(); ;
 
-            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection, pieceFactory);
+            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
         }
 
         private GridItemFactory CreatePieceFactory()
@@ -67,6 +73,11 @@ namespace Tests
         private SlotSelection CreateSlotSelection()
         {
             return new SlotSelectionImplementation();
+        }
+
+        public List<GameObject> GetItemNeighbors(GridItemMover item)
+        {
+            return new List<GameObject>();
         }
     }
 }

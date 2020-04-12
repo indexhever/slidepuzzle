@@ -27,15 +27,20 @@ namespace Game
 
         public Vector2 Origin => grid.Origin;
 
+        // TODO: inject grid item factory
+        private void Start()
+        {
+            grid = new GridImplementation(width, height, gridItemFactoryComponent, offset, transform.position);
+        }
+
         public GameObject GetGridItemObjectByRowColumn(int row, int column)
         {
             return grid.GetGridItemObjectByRowColumn(row, column);
         }
 
-        // TODO: inject grid item factory
-        private void Start()
+        public List<GameObject> GetItemNeighbors(GridItemMover gridMover)
         {
-            grid = new GridImplementation(width, height, gridItemFactoryComponent, offset, transform.position);
+            return grid.GetItemNeighbors(gridMover);
         }
     }
 }

@@ -26,11 +26,6 @@ namespace Game
             CreateGridItems();
         }
 
-        public GameObject GetGridItemObjectByRowColumn(int row, int column)
-        {
-            return GridItemObjects[row * Width + column];
-        }
-
         public int Width
         {
             get
@@ -89,6 +84,52 @@ namespace Game
             gridItemMover.Position = positioningStrategy.GetGridItemPositionByRowAndColum(row, column);
             gridItemMover.SetupRownAndColumn(row, column);
             GridItemObjects.Add(girdItemObject);
+        }
+
+        public List<GameObject> GetItemNeighbors(GridItemMover gridMover)
+        {
+            List<GameObject> itemNeighbors = new List<GameObject>();
+
+            // Get left item
+            int leftRow = gridMover.Row;
+            int leftColumn = gridMover.Column - 1;
+            if (IsInRowBounds(leftRow) && IsInColumnBounds(leftColumn))
+                itemNeighbors.Add(GetGridItemObjectByRowColumn(leftRow, leftColumn));
+
+            // Get up item
+            int upRow = gridMover.Row - 1;
+            int upColumn = gridMover.Column;
+            if (IsInRowBounds(upRow) && IsInColumnBounds(upColumn))
+                itemNeighbors.Add(GetGridItemObjectByRowColumn(upRow, upColumn));
+
+            // Get right item
+            int rightRow = gridMover.Row;
+            int rightColumn = gridMover.Column + 1;
+            if (IsInRowBounds(rightRow) && IsInColumnBounds(rightColumn))
+                itemNeighbors.Add(GetGridItemObjectByRowColumn(rightRow, rightColumn));
+
+            // Get bottom item
+            int bottomRow = gridMover.Row + 1;
+            int bottomColumn = gridMover.Column;
+            if (IsInRowBounds(bottomRow) && IsInColumnBounds(bottomColumn))
+                itemNeighbors.Add(GetGridItemObjectByRowColumn(bottomRow, bottomColumn));
+
+            return itemNeighbors;
+        }
+
+        private bool IsInRowBounds(int row)
+        {
+            return row < Height && row >= 0;
+        }
+
+        private bool IsInColumnBounds(int column)
+        {
+            return column < Width && column >= 0;
+        }
+
+        public GameObject GetGridItemObjectByRowColumn(int row, int column)
+        {
+            return GridItemObjects[row * Width + column];
         }
     }
 }

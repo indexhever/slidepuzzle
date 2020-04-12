@@ -15,7 +15,7 @@ namespace Game
         [SerializeField]
         private GridItemFactoryComponent pieceFactory;
         [SerializeField]
-        private GridImplementation grid;
+        private GridComponent grid;
 
         public override float GridItemHeightInUnit => gridItemFactory.GridItemHeightInUnit;
         public override float GridItemWidthInUnit => gridItemFactory.GridItemWidthInUnit;
@@ -27,12 +27,12 @@ namespace Game
 
         public void Construct()
         {
-            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelectionComponent, pieceFactory);
+            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelectionComponent, pieceFactory, grid);
         }
 
         public override GameObject Create()
         {
-            return gridItemFactory.Create();            
+            return gridItemFactory.Create();             
         }
     }
 }
