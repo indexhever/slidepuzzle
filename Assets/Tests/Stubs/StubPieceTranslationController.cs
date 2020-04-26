@@ -13,6 +13,12 @@ namespace Tests
             this.pieceMover = pieceMover;
         }
 
+        public StubPieceTranslationController(GameObject pieceObject)
+        {
+            PieceObject = pieceObject;
+            this.pieceMover = PieceObject.GetComponent<GridItemMover>();
+        }
+
         public Vector2 CurrentPiecePosition
         {
             get
@@ -21,7 +27,7 @@ namespace Tests
             }
         }
 
-        public GameObject PieceObject => throw new System.NotImplementedException();
+        public GameObject PieceObject { get; private set; }
 
         public void TranslateToPosition(Vector2 newPiecePosition)
         {

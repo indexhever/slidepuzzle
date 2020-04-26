@@ -6,8 +6,8 @@ namespace Game
     public interface PieceDestinationController : SlotSelectionServer
     {
         SlotState State { get; set; }
-        GameObject Piece { get; }
 
+        // Events
         void SetEmpty();
         void SetMovable();
         void SetFixed();

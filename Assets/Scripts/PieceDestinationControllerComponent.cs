@@ -25,7 +25,17 @@ namespace Game
 
         public Vector2 Position => pieceDestinationController.Position;
 
-        public GameObject Piece => pieceDestinationController.Piece;
+        public GameObject Piece
+        {
+            get
+            {
+                return pieceDestinationController.Piece;
+            }
+            set
+            {
+                pieceDestinationController.Piece = value;
+            }
+        }
 
         public void Construct(PieceTranslationController pieceTranslationController)
         {
@@ -52,9 +62,9 @@ namespace Game
             pieceDestinationController.MovePieceToDestinePosition(destinePosition);
         }
 
-        public void ReceivePiece()
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
-            pieceDestinationController.ReceivePiece();
+            pieceDestinationController.ReceivePieceFromSlot(slotSelectionServer);
         }
 
         public void SetEmpty()
@@ -77,9 +87,9 @@ namespace Game
             pieceDestinationController.TakePiece();
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
-            pieceDestinationController.TakePiece(pieceDestinePosition);
+            pieceDestinationController.TakePieceToPosition(pieceDestinePosition);
         }
 
         public void Clean()

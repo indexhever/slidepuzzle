@@ -42,6 +42,8 @@ namespace Tests
             }
         }
 
+        public Transform Transform => transform;
+
         public List<GameObject> GetNeighbors()
         {
             return new List<GameObject>();

@@ -39,6 +39,8 @@ namespace Game
             }
         }
 
+        public Transform Transform => transform;
+
         public void Construct(ItemNeighborRetriever itemNeighborRetriever)
         {
             this.itemNeighborRetriever = itemNeighborRetriever;

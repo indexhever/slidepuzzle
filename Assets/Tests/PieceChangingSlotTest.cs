@@ -4,42 +4,52 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Game;
-using System;
 
 namespace Tests
 {
-    public class SlotSortingTest
+    public class PieceChangingSlotTest
     {
         [Test]
-        public void SetEmptyStateToRandomSlot()
+        public void ChangePieceParentToDestineSlotAfterMoving()
         {
-            Game.GridImplementation slotGrid = CreateSlotGrid();
-            SlotSorting slotSorting = CreateSlotSortingToGrid(slotGrid);
+            Game.Grid grid = CreateSlotGrid();
+            GameObject emptySlotObject = GetEmptySlotObjectFromGrid(grid);
+            GameObject movableSlotObject = GetNeighborOfSlot(emptySlotObject);
+            Slot emptySlot = emptySlotObject.GetComponent<Slot>();
+            Slot movableSlot = movableSlotObject.GetComponent<Slot>();
+            PieceDestinationController emptySlotPieceDestinationController = emptySlotObject.GetComponent<PieceDestinationController>();
+            PieceDestinationController movableSlotPieceDestinationController = movableSlotObject.GetComponent<PieceDestinationController>();
+            
+            GameObject movedPiece = movableSlotPieceDestinationController.Piece;
 
-            GameObject randomSlotObject = slotSorting.GetRandomEmptySlotObject();
-            PieceDestinationController randomSlotPieceDestinationController = randomSlotObject.GetComponent<PieceDestinationController>();
+            Assert.IsNotNull(movedPiece);
 
-            Assert.IsTrue(randomSlotPieceDestinationController.State is EmptyState);
-            Assert.IsNull(randomSlotPieceDestinationController.Piece);
+            movableSlot.Touch();
+            emptySlot.Touch();
+
+            Assert.IsNotNull(movedPiece);
+            Assert.IsNotNull(emptySlotObject.transform);
+            Assert.AreEqual(emptySlotObject.transform, movedPiece.transform.parent);
+            Assert.IsNotNull(emptySlotPieceDestinationController.Piece);
+            Assert.AreEqual(null, movableSlotPieceDestinationController.Piece);
+            Assert.AreEqual(movedPiece, emptySlotPieceDestinationController.Piece);
         }
 
-        [Test]
-        public void RandomEmptySlotHasMovableNeighbors()
+        private GameObject GetEmptySlotObjectFromGrid(Game.Grid grid)
         {
-            Game.GridImplementation slotGrid = CreateSlotGrid();
-            SlotSorting slotSorting = CreateSlotSortingToGrid(slotGrid);
+            SlotSorting slotSorting = CreateSlotSortingToGrid(grid);
+            return slotSorting.GetRandomEmptySlotObject();
+        }
 
-            GameObject randomSlotObject = slotSorting.GetRandomEmptySlotObject();
-            GridItemMover slotMover = randomSlotObject.GetComponent<GridItemMover>();
-            List<GameObject> slotNeighbors = slotGrid.GetItemNeighbors(slotMover);
+        private SlotSorting CreateSlotSortingToGrid(Game.Grid slotGrid)
+        {
+            return new SlotSortingImplementation(slotGrid);
+        }
 
-            Assert.Greater(slotNeighbors.Count, 1);
-            foreach(GameObject slotNeighbor in slotNeighbors)
-            {
-                PieceDestinationController currentSlotPieceDestinationController = slotNeighbor.GetComponent<PieceDestinationController>();
-
-                Assert.IsTrue(currentSlotPieceDestinationController.CanMovePiece());
-            }
+        private GameObject GetNeighborOfSlot(GameObject slotObject)
+        {
+            GridItemMover gridItemMover = slotObject.GetComponent<GridItemMover>();
+            return gridItemMover.GetNeighbors()[0];
         }
 
         private Game.GridImplementation CreateSlotGrid()

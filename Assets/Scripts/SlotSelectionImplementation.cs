@@ -28,8 +28,8 @@ namespace Game
 
             if(firstCanMovePiece && secondCanReceivePiece)
             {
-                SelectedSlotSevers[0].TakePiece(SelectedSlotSevers[1].Position);
-                SelectedSlotSevers[1].ReceivePiece();
+                SelectedSlotSevers[1].ReceivePieceFromSlot(SelectedSlotSevers[0]);
+                SelectedSlotSevers[0].TakePieceToPosition(SelectedSlotSevers[1].Position);                
             }
 
             ResetSelectedSlotServers();

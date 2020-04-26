@@ -5,7 +5,7 @@ namespace Game
 {
     public class MovableState : SlotState
     {
-        public void ReceivePiece(PieceDestinationController pieceDestinationController)
+        public void ReceivePiece(PieceDestinationController pieceDestinationController, SlotSelectionServer slotSelectionServer)
         {
             
         }

@@ -60,11 +60,16 @@ namespace Game
             {
                 return pieceTranslationController.PieceObject;
             }
+            set
+            {
+                pieceTranslationController = value.GetComponent<PieceTranslationController>();
+                value.transform.SetParent(slotGridItemMover.Transform);
+            }
         } 
 
-        public void ReceivePiece()
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
-            State.ReceivePiece(this);
+            State.ReceivePiece(this, slotSelectionServer);
         }
 
         public void TakePiece()
@@ -72,7 +77,7 @@ namespace Game
             State.TakePieceFromSlot(this);
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
             State.TakePieceFromSlot(this, pieceDestinePosition);
         }

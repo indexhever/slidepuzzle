@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Game;
+using System;
 
 namespace Tests
 {
@@ -145,7 +146,26 @@ namespace Tests
 
         private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)
         {
-            return new StubPieceTranslationController(pieceMover);
+            GameObject pieceObject = CreatePieceObject();
+            return new StubPieceTranslationController(pieceObject);
+        }
+
+        private GameObject CreatePieceObject()
+        {
+            GridItemFactory pieceFactory = CreatePieceFactoryPrefab();
+            GameObject pieceObject = pieceFactory.Create();
+            return pieceObject;
+        }
+
+        private GridItemFactory CreatePieceFactoryPrefab()
+        {
+            GameObject piecePrefab = LoadPiecePrefab();
+            return new PieceFactoryImplementation(piecePrefab);
+        }
+
+        private GameObject LoadPiecePrefab()
+        {
+            return Resources.Load("StubPiecePrefab") as GameObject;
         }
 
         private GridItemMover CreatePieceMover()

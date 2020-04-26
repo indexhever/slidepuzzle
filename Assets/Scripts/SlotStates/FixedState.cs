@@ -6,9 +6,9 @@ namespace Game
 {
     public class FixedState : SlotState
     {
-        public void ReceivePiece(PieceDestinationController pieceDestinationController)
+        public void ReceivePiece(PieceDestinationController pieceDestinationController, SlotSelectionServer slotSelectionServer)
         {
-
+            
         }
 
         public void TakePieceFromSlot(PieceDestinationController pieceDestinationController)

@@ -5,7 +5,7 @@ namespace Game
 {
     public interface SlotState
     {
-        void ReceivePiece(PieceDestinationController pieceDestinationController);
+        void ReceivePiece(PieceDestinationController pieceDestinationController, SlotSelectionServer slotSelectionServer);
         void TakePieceFromSlot(PieceDestinationController pieceDestinationController);
         void TakePieceFromSlot(PieceDestinationController pieceDestinationController, Vector2 pieceDestinePosition);
     }

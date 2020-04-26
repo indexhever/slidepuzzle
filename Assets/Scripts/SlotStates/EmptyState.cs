@@ -5,9 +5,10 @@ namespace Game
 {
     public class EmptyState : SlotState
     {
-        public void ReceivePiece(PieceDestinationController pieceDestinationController)
+        public void ReceivePiece(PieceDestinationController pieceDestinationController, SlotSelectionServer slotSelectionServer)
         {
             pieceDestinationController.SetMovable();
+            pieceDestinationController.Piece = slotSelectionServer.Piece;
         }
 
         public void TakePieceFromSlot(PieceDestinationController pieceDestinationController)

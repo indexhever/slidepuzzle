@@ -13,14 +13,13 @@ namespace Game
             this.slotGrid = slotGrid;
         }
 
-        // TODO: deletar piece do slot achado
         public GameObject GetRandomEmptySlotObject()
         {
             int randomRow = Random.Range(0, slotGrid.Height);
             int randomColumn = Random.Range(0, slotGrid.Width);
             GameObject randomSlot = slotGrid.GetGridItemObjectByRowColumn(randomRow, randomColumn);
             PieceDestinationController pieceDestinationController = randomSlot.GetComponent<PieceDestinationController>();
-            GameObject.Destroy(pieceDestinationController.Piece);
+            GameObject.DestroyImmediate(pieceDestinationController.Piece);
             pieceDestinationController.SetEmpty();
             pieceDestinationController.Clean();
 
