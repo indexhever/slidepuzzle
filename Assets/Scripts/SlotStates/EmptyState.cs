@@ -9,6 +9,7 @@ namespace Game
         {
             pieceDestinationController.SetMovable();
             pieceDestinationController.Piece = slotSelectionServer.Piece;
+            pieceDestinationController.TurnFixedAllNeighborButOne(slotSelectionServer);
         }
 
         public void TakePieceFromSlot(PieceDestinationController pieceDestinationController)

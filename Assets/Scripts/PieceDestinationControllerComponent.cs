@@ -37,6 +37,10 @@ namespace Game
             }
         }
 
+        public bool IsFixed => pieceDestinationController.IsFixed;
+
+        public PieceDestinationController PieceDestinationController => pieceDestinationController;
+
         public void Construct(PieceTranslationController pieceTranslationController)
         {
             pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController, gridItemComponent);
@@ -95,6 +99,11 @@ namespace Game
         public void Clean()
         {
             pieceDestinationController.Clean();
+        }
+
+        public void TurnFixedAllNeighborButOne(SlotSelectionServer givenSlotSelectionServer)
+        {
+            pieceDestinationController.TurnFixedAllNeighborButOne(givenSlotSelectionServer);
         }
     }
 }

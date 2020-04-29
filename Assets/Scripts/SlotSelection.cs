@@ -9,5 +9,6 @@ namespace Game
         List<SlotSelectionServer> SelectedSlotSevers { get; }
 
         void SelectSlot(SlotSelectionServer slotSelectionServer);
+        void SelectSlot(SlotSelectionServer slotSelectionServer, PieceDestinationController pieceDestinationController);
     }
 }

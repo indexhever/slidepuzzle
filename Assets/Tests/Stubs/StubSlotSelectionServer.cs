@@ -31,6 +31,10 @@ namespace Tests
 
         public GameObject Piece { get; set; }
 
+        public bool IsFixed => false;
+
+        public PieceDestinationController PieceDestinationController => null;
+
         public bool CanMovePiece()
         {
             CanMovePieceWasCalled = true;

@@ -7,6 +7,8 @@ namespace Game
     {
         Vector2 Position { get; }
         GameObject Piece { get; set; }
+        bool IsFixed { get; }
+        PieceDestinationController PieceDestinationController { get; }
 
         bool CanMovePiece();
         bool CanReceivePiece();

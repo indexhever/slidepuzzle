@@ -24,5 +24,10 @@ namespace Game
         {
             slotSelection.SelectSlot(slotSelectionServer);
         }
+
+        public void SelectSlot(SlotSelectionServer slotSelectionServer, PieceDestinationController pieceDestinationController)
+        {
+            slotSelection.SelectSlot(slotSelectionServer, pieceDestinationController);
+        }
     }
 }
