@@ -42,6 +42,13 @@ namespace Tests
             }
         }
 
+        public Transform Transform => transform;
+
+        public List<GameObject> GetNeighbors()
+        {
+            return new List<GameObject>();
+        }
+
         public void SetupRownAndColumn(int row, int column)
         {
             Row = row;

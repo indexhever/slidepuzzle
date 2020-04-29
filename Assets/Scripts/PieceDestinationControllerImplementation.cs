@@ -1,25 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Game
 {
     public class PieceDestinationControllerImplementation : PieceDestinationController
     {
+        private readonly PieceTranslationController NULL_TRANSLATION_CONTROLLER;
         private readonly SlotState EMPTY_STATE;
         private readonly SlotState MOVABLE_STATE;
+        private readonly SlotState FIXED_STATE;
+
         private PieceTranslationController pieceTranslationController;
+        private GridItemMover slotGridItemMover;
 
         public PieceDestinationControllerImplementation()
         {
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
         }
 
         public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController)
         {
             this.pieceTranslationController = pieceTranslationController;
+            NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
             EMPTY_STATE = new EmptyState();
             MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
+        }
+
+        public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController, GridItemMover slotGridItemMover)
+        {
+            this.pieceTranslationController = pieceTranslationController;
+            this.slotGridItemMover = slotGridItemMover;
+            //this.grid = grid;
+            NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
+            EMPTY_STATE = new EmptyState();
+            MOVABLE_STATE = new MovableState();
+            FIXED_STATE = new FixedState();
+            SetFixed();
         }
 
         public SlotState State { get; set; }
@@ -32,9 +54,22 @@ namespace Game
             }
         }
 
-        public void ReceivePiece()
+        public GameObject Piece
         {
-            State.ReceivePiece(this);
+            get
+            {
+                return pieceTranslationController.PieceObject;
+            }
+            set
+            {
+                pieceTranslationController = value.GetComponent<PieceTranslationController>();
+                value.transform.SetParent(slotGridItemMover.Transform);
+            }
+        } 
+
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
+        {
+            State.ReceivePiece(this, slotSelectionServer);
         }
 
         public void TakePiece()
@@ -42,7 +77,7 @@ namespace Game
             State.TakePieceFromSlot(this);
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
             State.TakePieceFromSlot(this, pieceDestinePosition);
         }
@@ -55,6 +90,11 @@ namespace Game
         public void SetMovable()
         {
             State = MOVABLE_STATE;
+        }
+
+        public void SetFixed()
+        {
+            State = FIXED_STATE;
         }
 
         public bool CanMovePiece()
@@ -75,6 +115,23 @@ namespace Game
         public void MovePieceToDestinePosition(Vector2 destinePosition)
         {
             pieceTranslationController.TranslateToPosition(destinePosition);
+        }
+
+        public void Clean()
+        {
+            pieceTranslationController = NULL_TRANSLATION_CONTROLLER;
+            SetNeighborMovable();
+        }
+
+        private void SetNeighborMovable()
+        {
+            List<GameObject> neighbors = slotGridItemMover.GetNeighbors();
+
+            foreach(GameObject neighbor in neighbors)
+            {
+                PieceDestinationController currentNeighborPieceDestinationController = neighbor.GetComponent<PieceDestinationController>();
+                currentNeighborPieceDestinationController.SetMovable();
+            }
         }
     }
 }

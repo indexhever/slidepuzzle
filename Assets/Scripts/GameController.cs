@@ -6,10 +6,14 @@ namespace Game
 {
     public class GameController : MonoBehaviour
     {
+        private SlotSorting slotSorting;
+
         [SerializeField]
-        SlotFactory slotFactory;
+        private SlotFactory slotFactory;
         [SerializeField]
-        PieceFactory pieceFactory;
+        private PieceFactory pieceFactory;
+        [SerializeField]
+        private GridComponent slotGrid;
 
         private void Awake()
         {
@@ -20,6 +24,12 @@ namespace Game
         {
             slotFactory.Construct();
             pieceFactory.Construct();
+            slotSorting = new SlotSortingImplementation(slotGrid);
+        }
+
+        private void Start()
+        {
+            slotSorting.GetRandomEmptySlotObject();
         }
     }
 }

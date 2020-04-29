@@ -20,10 +20,6 @@ namespace Game
             set => transform.position = value;
         }
 
-        // TODO: pieceDestinationController vai ser um componente que vai controlar a posição da peça atual do slote
-        // TODO: positioner é o controlador de posição do slot
-        // TODO: quando uma peça for pra outro slot, o controlador de peça deve controlar essa nova peça
-        // TODO: slot vai ter a factory de peça para poder criá-la e colocar como filha dele na posição dele
         public void Construct(SlotSelection slotSelection)
         {
             this.slotSelection = slotSelection;

@@ -44,6 +44,12 @@ namespace Game
 
         public PieceMover PieceMover => pieceMover;
 
+        public GameObject Piece
+        {
+            get => pieceDestinationController.Piece;
+            set => pieceDestinationController.Piece = value;
+        }
+
         public bool CanMovePiece()
         {
             return pieceDestinationController.CanMovePiece();
@@ -54,9 +60,9 @@ namespace Game
             return pieceDestinationController.CanReceivePiece();
         }
 
-        public void ReceivePiece()
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
-            pieceDestinationController.ReceivePiece();
+            pieceDestinationController.ReceivePieceFromSlot(slotSelectionServer);
         }
 
         public void TakePiece()
@@ -64,9 +70,9 @@ namespace Game
             pieceDestinationController.TakePiece();
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
-            pieceDestinationController.TakePiece(pieceDestinePosition);
+            pieceDestinationController.TakePieceToPosition(pieceDestinePosition);
         }
 
         public void Touch()

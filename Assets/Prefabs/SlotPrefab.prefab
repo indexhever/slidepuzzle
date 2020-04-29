@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb1147b1497cf349b014530314fc10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridItemComponent: {fileID: 2745480415366537161}

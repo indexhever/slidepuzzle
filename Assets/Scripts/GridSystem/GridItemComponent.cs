@@ -6,6 +6,8 @@ namespace Game
 {
     public class GridItemComponent : MonoBehaviour, GridItemMover, GridItem
     {
+        private ItemNeighborRetriever itemNeighborRetriever;
+
         [SerializeField]
         private SpriteRenderer spriteRenderer;
 
@@ -35,6 +37,18 @@ namespace Game
             {
                 return spriteRenderer.sprite.texture.height / spriteRenderer.sprite.pixelsPerUnit;
             }
+        }
+
+        public Transform Transform => transform;
+
+        public void Construct(ItemNeighborRetriever itemNeighborRetriever)
+        {
+            this.itemNeighborRetriever = itemNeighborRetriever;
+        }
+
+        public List<GameObject> GetNeighbors()
+        {
+            return itemNeighborRetriever.GetItemNeighbors(this);
         }
 
         public void SetupRownAndColumn(int row, int column)

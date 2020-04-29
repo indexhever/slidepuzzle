@@ -8,33 +8,56 @@ using System;
 
 namespace Tests
 {
-    public class SlotTest
+    public class SlotTest : ItemNeighborRetriever
     {
-        /*
         [Test]
         public void Creation()
         {
-            Slot slot = CreateSlot();
+            PieceDestinationController slotPieceDestinationController = CreatePieceDestinationController();
 
-            PieceMover pieceMoverInsideSlot = slot.PieceMover;
-
-            Assert.IsNotNull(pieceMoverInsideSlot);
-        }*/
+            Assert.IsNotNull(slotPieceDestinationController);
+            Assert.IsTrue(slotPieceDestinationController.State is FixedState);
+        }
 
         private Slot CreateSlot()
         {
-            GridItemFactory slotFactory = CreateSlotFactory();
-            GameObject slotObject = slotFactory.Create();
+            GameObject slotObject = CreateSlotObject();
 
             return slotObject.GetComponent<SlotComponent>();
         }
 
-        private GridItemFactory CreateSlotFactory()
+        private PieceDestinationController CreatePieceDestinationController()
+        {
+            GameObject slotObject = CreateSlotObject();
+
+            return slotObject.GetComponent<PieceDestinationController>();
+        }
+
+        private GameObject CreateSlotObject()
+        {
+            ItemNeighborRetriever itemNeighborRetriever = CreateItemNeighborRetriever();
+            GridItemFactory slotFactory = CreateSlotFactory(itemNeighborRetriever);
+            return slotFactory.Create();
+        }
+
+        private ItemNeighborRetriever CreateItemNeighborRetriever()
+        {
+            return this;
+        }
+
+        private GridItemFactory CreateSlotFactory(ItemNeighborRetriever itemNeighborRetriever)
         {
             GameObject slotObjectPrefab = LoadSlotPrefab();
             SlotSelection slotSelection = CreateSlotSelection();
+            GridItemFactory pieceFactory = CreatePieceFactory(); ;
 
-            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection);
+            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
+        }
+
+        private GridItemFactory CreatePieceFactory()
+        {
+            GameObject pieceObjectPrefab = LoadPiecePrefab();
+            return new PieceFactoryImplementation(pieceObjectPrefab);
         }
 
         private GameObject LoadSlotPrefab()
@@ -42,9 +65,19 @@ namespace Tests
             return Resources.Load("StubSlotPrefab") as GameObject;
         }
 
+        private GameObject LoadPiecePrefab()
+        {
+            return Resources.Load("StubPiecePrefab") as GameObject;
+        }
+
         private SlotSelection CreateSlotSelection()
         {
             return new SlotSelectionImplementation();
+        }
+
+        public List<GameObject> GetItemNeighbors(GridItemMover item)
+        {
+            return new List<GameObject>();
         }
     }
 }

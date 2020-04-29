@@ -14,7 +14,7 @@ namespace Tests
         public void GridCreation()
         {
             Vector2 originPosition = new Vector2(0, 0);
-            Game.Grid grid = CreateGrid(3, 3, 1, originPosition);
+            Game.GridImplementation grid = CreateGrid(3, 3, 1, originPosition);
 
             Assert.AreEqual(3, grid.Width);
             Assert.AreEqual(3, grid.Height);
@@ -26,7 +26,7 @@ namespace Tests
         public void FirstAndSecondGridItemAreNotNull()
         {
             Vector2 originPosition = new Vector2(0, 0);
-            Game.Grid grid = CreateGrid(3, 3, 2, originPosition);
+            Game.GridImplementation grid = CreateGrid(3, 3, 2, originPosition);
 
             GameObject firstGridItemObject = grid.GridItemObjects[0];
             GameObject secondGridItemObject = grid.GridItemObjects[1];
@@ -39,7 +39,7 @@ namespace Tests
         public void GetCreatedGridItems()
         {
             Vector2 originPosition = new Vector2(0, 0);
-            Game.Grid grid = CreateGrid(3, 3, 2, originPosition);
+            Game.GridImplementation grid = CreateGrid(3, 3, 2, originPosition);
 
             GameObject firstGridItemObject = grid.GridItemObjects[0];
             GameObject secondGridItemObject = grid.GridItemObjects[1];
@@ -66,7 +66,7 @@ namespace Tests
         {
             float offset = 2;
             Vector2 originPosition = new Vector2(0, 0);
-            Game.Grid grid = CreateGrid(3, 3, offset, originPosition);
+            Game.GridImplementation grid = CreateGrid(3, 3, offset, originPosition);
             GridItemFactory gridItemFactory = CreateGridItemFactory();
 
             float gridItemWidthInUnit = gridItemFactory.GridItemWidthInUnit;
@@ -99,10 +99,10 @@ namespace Tests
             //Assert.AreEqual(new Vector2(-10.5f, 12), gridItemMover.Position);
         }
 
-        private Game.Grid CreateGrid(int width, int height, float offset, Vector2 originPosition)
+        private Game.GridImplementation CreateGrid(int width, int height, float offset, Vector2 originPosition)
         {
             GridItemFactory gridItemFactory = CreateGridItemFactory();
-            return new Game.Grid(width, height, gridItemFactory, offset, originPosition);
+            return new Game.GridImplementation(width, height, gridItemFactory, offset, originPosition);
         }
 
         private GridItemFactory CreateGridItemFactory()

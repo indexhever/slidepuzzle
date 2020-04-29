@@ -1,23 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
-    public class EmptyState : SlotState
+    public class FixedState : SlotState
     {
-        public void ReceivePiece(PieceDestinationController pieceDestinationController)
+        public void ReceivePiece(PieceDestinationController pieceDestinationController, SlotSelectionServer slotSelectionServer)
         {
-            pieceDestinationController.SetMovable();
+            
         }
 
         public void TakePieceFromSlot(PieceDestinationController pieceDestinationController)
         {
-
         }
 
         public void TakePieceFromSlot(PieceDestinationController pieceDestinationController, Vector2 pieceDestinePosition)
         {
-            
+
         }
     }
 }
