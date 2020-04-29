@@ -136,12 +136,13 @@ namespace Tests
             Assert.IsTrue((slotSelectionServer1 as StubSlotSelectionServer).TakePieceWasCalled);
         }
 
+        // TODO: fix receive piece from slot null value
         [Test]
         public void ReceivePieceCalled()
         {
             SlotSelectionServer slotSelectionServer1 = CreateSlotSelectionServer(true, true) as StubSlotSelectionServer;
 
-            slotSelectionServer1.ReceivePiece();
+            slotSelectionServer1.ReceivePieceFromSlot(null);
 
             Assert.IsTrue((slotSelectionServer1 as StubSlotSelectionServer).ReceivePieceWasCalled);
         }

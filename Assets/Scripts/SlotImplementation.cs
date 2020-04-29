@@ -8,6 +8,7 @@ namespace Game
         private SlotSelection slotSelection;
         private PieceDestinationController pieceDestinationController;
         private Positioner positioner;
+        private PieceMover pieceMover;
 
         public SlotImplementation(SlotSelection slotSelection)
         {
@@ -41,6 +42,18 @@ namespace Game
             }
         }
 
+        public PieceMover PieceMover => pieceMover;
+
+        public GameObject Piece
+        {
+            get => pieceDestinationController.Piece;
+            set => pieceDestinationController.Piece = value;
+        }
+
+        public bool IsFixed => pieceDestinationController.IsFixed;
+
+        public PieceDestinationController PieceDestinationController => pieceDestinationController;
+
         public bool CanMovePiece()
         {
             return pieceDestinationController.CanMovePiece();
@@ -51,9 +64,9 @@ namespace Game
             return pieceDestinationController.CanReceivePiece();
         }
 
-        public void ReceivePiece()
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
-            pieceDestinationController.ReceivePiece();
+            pieceDestinationController.ReceivePieceFromSlot(slotSelectionServer);
         }
 
         public void TakePiece()
@@ -61,14 +74,14 @@ namespace Game
             pieceDestinationController.TakePiece();
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
-            pieceDestinationController.TakePiece(pieceDestinePosition);
+            pieceDestinationController.TakePieceToPosition(pieceDestinePosition);
         }
 
         public void Touch()
         {
-            slotSelection.SelectSlot(this);
+            slotSelection.SelectSlot(this, pieceDestinationController);
         }
     }
 }

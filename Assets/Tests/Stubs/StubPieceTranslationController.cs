@@ -6,11 +6,17 @@ namespace Tests
 {
     public class StubPieceTranslationController : PieceTranslationController
     {
-        private PieceMover pieceMover;
+        private GridItemMover pieceMover;
 
-        public StubPieceTranslationController(PieceMover pieceMover)
+        public StubPieceTranslationController(GridItemMover pieceMover)
         {
             this.pieceMover = pieceMover;
+        }
+
+        public StubPieceTranslationController(GameObject pieceObject)
+        {
+            PieceObject = pieceObject;
+            this.pieceMover = PieceObject.GetComponent<GridItemMover>();
         }
 
         public Vector2 CurrentPiecePosition
@@ -20,6 +26,8 @@ namespace Tests
                 return pieceMover.Position;
             }
         }
+
+        public GameObject PieceObject { get; private set; }
 
         public void TranslateToPosition(Vector2 newPiecePosition)
         {

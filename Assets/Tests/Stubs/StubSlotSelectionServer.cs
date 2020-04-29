@@ -15,12 +15,25 @@ namespace Tests
             this.canReceivePiece = canReceivePiece;
         }
 
+        public StubSlotSelectionServer(bool canMovePiece, bool canReceivePiece, GameObject pieceObject)
+        {
+            this.canMovePiece = canMovePiece;
+            this.canReceivePiece = canReceivePiece;
+            Piece = pieceObject;
+        }
+
         public bool CanMovePieceWasCalled { get; private set; }
         public bool CanReceivePieceWasCalled { get; private set; }
         public bool TakePieceWasCalled { get; internal set; }
         public bool ReceivePieceWasCalled { get; internal set; }
 
         public Vector2 Position => Vector2.zero;
+
+        public GameObject Piece { get; set; }
+
+        public bool IsFixed => false;
+
+        public PieceDestinationController PieceDestinationController => null;
 
         public bool CanMovePiece()
         {
@@ -34,7 +47,12 @@ namespace Tests
             return canReceivePiece;
         }
 
-        public void ReceivePiece()
+        public void ReceivePieceFromSlot()
+        {
+            ReceivePieceWasCalled = true;
+        }
+
+        public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
             ReceivePieceWasCalled = true;
         }
@@ -44,7 +62,7 @@ namespace Tests
             TakePieceWasCalled = true;
         }
 
-        public void TakePiece(Vector2 pieceDestinePosition)
+        public void TakePieceToPosition(Vector2 pieceDestinePosition)
         {
             TakePieceWasCalled = true;
         }

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Game;
+using System;
 
 namespace Tests
 {
@@ -138,25 +139,45 @@ namespace Tests
 
         private PieceDestinationController CreatePieceDestinationController()
         {
-            PieceTranslationController pieceTranslationController = CreatePieceTranslationController(CreatePieceMover());
-            return new PieceDestinationControllerImplementation(pieceTranslationController);
+            GridItemMover pieceMover = CreatePieceMover();
+            PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover);
         }
 
-        private PieceTranslationController CreatePieceTranslationController(PieceMover pieceMover)
+        private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)
         {
-            return new StubPieceTranslationController(pieceMover);
+            GameObject pieceObject = CreatePieceObject();
+            return new StubPieceTranslationController(pieceObject);
         }
 
-        private PieceMover CreatePieceMover()
+        private GameObject CreatePieceObject()
         {
-            PieceFactory pieceFactory = CreatePieceFactory();
+            GridItemFactory pieceFactory = CreatePieceFactoryPrefab();
             GameObject pieceObject = pieceFactory.Create();
-            return pieceObject.GetComponent<PieceMover>();
+            return pieceObject;
         }
 
-        private PieceFactory CreatePieceFactory()
+        private GridItemFactory CreatePieceFactoryPrefab()
         {
-            return new StubPieceFactory();
+            GameObject piecePrefab = LoadPiecePrefab();
+            return new PieceFactoryImplementation(piecePrefab);
+        }
+
+        private GameObject LoadPiecePrefab()
+        {
+            return Resources.Load("StubPiecePrefab") as GameObject;
+        }
+
+        private GridItemMover CreatePieceMover()
+        {
+            GridItemFactory pieceFactory = CreatePieceFactory();
+            GameObject pieceObject = pieceFactory.Create();
+            return pieceObject.GetComponent<GridItemMover>();
+        }
+
+        private GridItemFactory CreatePieceFactory()
+        {
+            return new StubGridItemFactory();
         }
 
         private Positioner CreateSlotPositioner(Vector2 pieceDestinePosition)

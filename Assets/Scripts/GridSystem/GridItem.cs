@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface Piece
+    public interface GridItem
     {
         float WidthInUnit { get; }
         float HeightInUnit { get; }

@@ -6,7 +6,7 @@ using System;
 
 namespace Tests
 {
-    public class StubPieceComponent : MonoBehaviour, PieceMover, Piece
+    public class StubGridItemComponent : MonoBehaviour, GridItemMover, GridItem
     {
         private float widthInUnit = 5;
         private float heightInUnit = 6;
@@ -40,6 +40,13 @@ namespace Tests
             {
                 return heightInPixels / pixelPerUnit;
             }
+        }
+
+        public Transform Transform => transform;
+
+        public List<GameObject> GetNeighbors()
+        {
+            return new List<GameObject>();
         }
 
         public void SetupRownAndColumn(int row, int column)

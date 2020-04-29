@@ -1,34 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 namespace Game
 {
-    public class PieceFactoryImplementation : PieceFactory
+    public class PieceFactoryImplementation : GridItemFactory
     {
-        private GameObject pieceObjectPrefab;
+        private GameObject gridItemObjectPrefab;
 
-        public PieceFactoryImplementation(GameObject pieceObjectPrefab)
+        public PieceFactoryImplementation(GameObject gridItemObjectPrefab)
         {
-            this.pieceObjectPrefab = pieceObjectPrefab;
-            Piece piece = pieceObjectPrefab.GetComponent<Piece>();
-            PieceWidthInUnit = piece.WidthInUnit;
-            PieceHeightInUnit = piece.HeightInUnit;
+            this.gridItemObjectPrefab = gridItemObjectPrefab;
+            GridItem gridItem = gridItemObjectPrefab.GetComponent<GridItem>();
+            GridItemWidthInUnit = gridItem.WidthInUnit;
+            GridItemHeightInUnit = gridItem.HeightInUnit;
         }
 
-        public float PieceWidthInUnit
+        public float GridItemWidthInUnit
         {
             get; private set;
         }
-        public float PieceHeightInUnit
+        public float GridItemHeightInUnit
         {
             get; private set;
         }
 
         public GameObject Create()
         {
-            GameObject pieceMoverObject = GameObject.Instantiate(pieceObjectPrefab);
-            return pieceMoverObject;
+            GameObject gridItemObject = GameObject.Instantiate(gridItemObjectPrefab);
+            PieceComponent pieceComponent = gridItemObject.GetComponent<PieceComponent>();
+            pieceComponent.Construct();
+            return gridItemObject;
         }
     }
 }
