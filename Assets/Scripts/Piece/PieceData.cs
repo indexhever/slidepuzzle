@@ -5,6 +5,6 @@ namespace Game
 {
     public interface PieceData
     {
-
+        string Text { get; }
     }
 }

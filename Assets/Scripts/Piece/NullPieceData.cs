@@ -5,6 +5,6 @@ namespace Game
 {
     public class NullPieceData : PieceData
     {
-        
+        public string Text => "No Data";
     }
 }

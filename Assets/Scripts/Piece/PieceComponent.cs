@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Game
@@ -7,11 +8,14 @@ namespace Game
     public class PieceComponent : MonoBehaviour
     {
         [SerializeField]
-        private PieceDataImplementation pieceDataImplementation;
+        private PieceData pieceData;
+        [SerializeField]
+        private TextMeshProUGUI text;
 
         public void Construct(PieceData pieceData)
         {
-            pieceDataImplementation = pieceData as PieceDataImplementation;
+            this.pieceData = pieceData;
+            text.text = pieceData.Text;
         }
     }
 }

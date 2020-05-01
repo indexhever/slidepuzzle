@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8979e713c40987048b45c9545f9a019f, type: 3}
   m_Name: PieceData 8
   m_EditorClassIdentifier: 
+  text: 8
