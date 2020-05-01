@@ -16,6 +16,9 @@ namespace Game
 
         public PieceData GetRandomPieceData()
         {
+            if (pieceDataList.Count == 0)
+                return new NullPieceData();
+
             currentRandomIndex = Random.Range(0, pieceDataList.Count);
 
             PieceData newPieceData = pieceDataList[currentRandomIndex];
