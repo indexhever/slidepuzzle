@@ -62,8 +62,9 @@ namespace Game
             }
             set
             {
-                pieceTranslationController = value.GetComponent<PieceTranslationController>();
-                value.transform.SetParent(slotGridItemMover.Transform);
+                GameObject pieceObject = value;
+                pieceTranslationController = pieceObject.GetComponent<PieceTranslationController>();
+                pieceObject.transform.SetParent(slotGridItemMover.Transform);
             }
         }
 

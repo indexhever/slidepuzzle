@@ -11,7 +11,7 @@ namespace Game
         [SerializeField]
         private SlotFactory slotFactory;
         [SerializeField]
-        private PieceFactory pieceFactory;
+        private PieceFactoryComponent pieceFactory;
         [SerializeField]
         private GridComponent slotGrid;
 
