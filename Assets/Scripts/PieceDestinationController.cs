@@ -15,5 +15,6 @@ namespace Game
         Vector2 GetPosition();
         void MovePieceToDestinePosition(Vector2 destinePosition);
         void Clean();
+        void TurnFixedAllNeighborButOne(SlotSelectionServer givenSlotSelectionServer);
     }
 }

@@ -35,6 +35,25 @@ namespace Game
             ResetSelectedSlotServers();
         }
 
+        public void SelectSlot(SlotSelectionServer slotSelectionServer, PieceDestinationController pieceDestinationController)
+        {
+            SelectedSlotSevers.Add(slotSelectionServer);
+
+            if (SelectedSlotSevers.Count < MAXIMUN_AMOUNT_OF_SLOTS_SELECTED)
+                return;
+
+            bool firstCanMovePiece = SelectedSlotSevers[0].CanMovePiece();
+            bool secondCanReceivePiece = SelectedSlotSevers[1].CanReceivePiece();
+
+            if (firstCanMovePiece && secondCanReceivePiece)
+            {
+                SelectedSlotSevers[1].ReceivePieceFromSlot(SelectedSlotSevers[0].PieceDestinationController);
+                SelectedSlotSevers[0].TakePieceToPosition(SelectedSlotSevers[1].Position);
+            }
+
+            ResetSelectedSlotServers();
+        }
+
         private void ResetSelectedSlotServers()
         {
             SelectedSlotSevers.Clear();

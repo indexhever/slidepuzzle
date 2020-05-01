@@ -50,6 +50,10 @@ namespace Game
             set => pieceDestinationController.Piece = value;
         }
 
+        public bool IsFixed => pieceDestinationController.IsFixed;
+
+        public PieceDestinationController PieceDestinationController => pieceDestinationController;
+
         public bool CanMovePiece()
         {
             return pieceDestinationController.CanMovePiece();
@@ -77,7 +81,7 @@ namespace Game
 
         public void Touch()
         {
-            slotSelection.SelectSlot(this);
+            slotSelection.SelectSlot(this, pieceDestinationController);
         }
     }
 }

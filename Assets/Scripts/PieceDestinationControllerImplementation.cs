@@ -65,7 +65,11 @@ namespace Game
                 pieceTranslationController = value.GetComponent<PieceTranslationController>();
                 value.transform.SetParent(slotGridItemMover.Transform);
             }
-        } 
+        }
+
+        public bool IsFixed => State == FIXED_STATE;
+
+        public PieceDestinationController PieceDestinationController => this;
 
         public void ReceivePieceFromSlot(SlotSelectionServer slotSelectionServer)
         {
@@ -131,6 +135,22 @@ namespace Game
             {
                 PieceDestinationController currentNeighborPieceDestinationController = neighbor.GetComponent<PieceDestinationController>();
                 currentNeighborPieceDestinationController.SetMovable();
+            }
+        }
+
+        public void TurnFixedAllNeighborButOne(SlotSelectionServer givenSlotSelectionServer)
+        {
+            List<GameObject> neighbors = slotGridItemMover.GetNeighbors();
+            neighbors.RemoveAll
+            (
+                neighbor => 
+                    neighbor.GetComponent<SlotSelectionServer>().Equals(givenSlotSelectionServer)
+            );
+
+            foreach (GameObject neighbor in neighbors)
+            {
+                PieceDestinationController currentNeighborPieceDestinationController = neighbor.GetComponent<PieceDestinationController>();
+                currentNeighborPieceDestinationController.SetFixed();
             }
         }
     }
