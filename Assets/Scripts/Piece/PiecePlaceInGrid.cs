@@ -5,6 +5,6 @@ namespace Game
 {
     public interface PiecePlaceInGrid
     {
-        
+        int Place { get; }
     }
 }

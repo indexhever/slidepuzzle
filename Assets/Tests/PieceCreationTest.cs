@@ -14,9 +14,8 @@ namespace Tests
         public void PieceCreationCorrectly()
         {
             PieceFactory pieceFactory = CreatePieceFactory();
-            PieceData pieceData = CreatePieceData();
 
-            GameObject pieceObject = pieceFactory.Create(pieceData);
+            GameObject pieceObject = pieceFactory.Create();
 
             Assert.IsNotNull(pieceObject); 
         }

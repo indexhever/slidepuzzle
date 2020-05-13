@@ -63,7 +63,7 @@ namespace Tests
             GameObject slotPrefab = LoadSlotPrefab();
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemFactory pieceFactory = CreatePieceFactory();
-            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
+            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever, new StubWinController());
         }
 
         private GridItemFactory CreatePieceFactory()

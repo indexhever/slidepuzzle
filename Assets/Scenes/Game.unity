@@ -154,6 +154,7 @@ MonoBehaviour:
   slotSelectionComponent: {fileID: 648137246}
   pieceFactory: {fileID: 1192876064}
   grid: {fileID: 389215170}
+  winController: {fileID: 727200329}
 --- !u!4 &279255424
 Transform:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e6ad6ffcfe19b4d9ce5c8dc8d99cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 3
+  width: 2
   height: 3
   offset: 0.25
   gridItemFactoryComponent: {fileID: 279255423}
@@ -368,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727200328}
   - component: {fileID: 727200327}
+  - component: {fileID: 727200329}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -390,6 +392,7 @@ MonoBehaviour:
   slotFactory: {fileID: 279255423}
   pieceFactory: {fileID: 1192876064}
   slotGrid: {fileID: 389215170}
+  winController: {fileID: 727200329}
 --- !u!4 &727200328
 Transform:
   m_ObjectHideFlags: 0
@@ -404,6 +407,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727200329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727200326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8d02ece10735144a7a00bb7fba7418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1022159678
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +551,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ecded3df80e61cc4eaec0bfa0fd6a43e, type: 2}
   - {fileID: 11400000, guid: 10846bd44b6d73444b4dbd01517307ce, type: 2}
   - {fileID: 11400000, guid: f81283461c557bc468db577567b77c2f, type: 2}
-  - {fileID: 11400000, guid: 5d99ce8cce1272f40ae17e093c661318, type: 2}
-  - {fileID: 11400000, guid: ebdf40e9494c86949a02812e0c674cd8, type: 2}
-  - {fileID: 11400000, guid: 750712283378c7e44a3d0160ea541cec, type: 2}

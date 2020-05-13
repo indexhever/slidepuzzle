@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PieceData 3
   m_EditorClassIdentifier: 
   text: 3
+  placeInGrid: 2

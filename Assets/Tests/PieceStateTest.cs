@@ -40,10 +40,15 @@ namespace Tests
         }
 
         private PieceDestinationController CreatePieceDestinationController()
+        {            
+            return CreatePieceDestinationController(new StubWinController());
+        }
+
+        private PieceDestinationController CreatePieceDestinationController(WinController winController)
         {
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController();
             GridItemMover slotGridItemMover = SlotGridItemMover();
-            return new PieceDestinationControllerImplementation(pieceTranslationController, slotGridItemMover);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, slotGridItemMover, winController);
         }
 
         private PieceTranslationController CreatePieceTranslationController()

@@ -14,6 +14,8 @@ namespace Game
         private PieceFactoryComponent pieceFactory;
         [SerializeField]
         private GridComponent slotGrid;
+        [SerializeField]
+        private WinControllerComponent winController;
 
         private void Awake()
         {
@@ -22,6 +24,9 @@ namespace Game
 
         private void Construct()
         {
+            WinEventControllerImplementation winEvent = new WinEventControllerImplementation();
+            winEvent.AddListener(HandleEndGame);
+            winController.Construct(slotGrid.Width * slotGrid.Height - 1, winEvent);
             slotFactory.Construct();
             pieceFactory.Construct();
             slotSorting = new SlotSortingImplementation(slotGrid);
@@ -30,6 +35,11 @@ namespace Game
         private void Start()
         {
             slotSorting.GetRandomEmptySlotObject();
+        }
+
+        private void HandleEndGame()
+        {
+            Debug.Log("Game finished");
         }
     }
 }
