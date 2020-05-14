@@ -9,7 +9,11 @@ namespace Game
     {
         [SerializeField]
         private string text;
+        [SerializeField]
+        private int placeInGrid;
 
         public string Text => text;
+
+        public int PlaceInGrid => placeInGrid;
     }
 }

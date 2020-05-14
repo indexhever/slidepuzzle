@@ -123,7 +123,7 @@ namespace Tests
 
         private PieceDestinationController CreatePieceDestinationController(PieceTranslationController pieceTranslationController, GridItemMover pieceMover)
         {
-            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover, new StubWinController());
         }
 
         private SlotSelection CreateSlotSelection()

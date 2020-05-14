@@ -4,11 +4,25 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Game;
+using System;
 
 namespace Tests
 {
     public class PieceChangingSlotTest
     {
+        PieceDataSorter pieceDataSorter;
+
+        [SetUp]
+        public void Setup()
+        {
+            pieceDataSorter = CreateStubPieceDataSorter();
+        }
+
+        private PieceDataSorter CreateStubPieceDataSorter()
+        {
+            return new StubPieceDataSorter();
+        }
+
         [Test]
         public void ChangePieceParentToDestineSlotAfterMoving()
         {
@@ -34,10 +48,7 @@ namespace Tests
             Assert.AreEqual(null, movableSlotPieceDestinationController.Piece);
             Assert.AreEqual(movedPiece, emptySlotPieceDestinationController.Piece);
         }
-
-        //TODO: no estado Empty, quando ReceivePiece
-	    //- chamar metodo de PiceDestinationController que transforma todos os vizinhos, menos a
-        // peça que está indo para a vazia, em estado fixed        
+      
         [Test]
         public void WhenEmptySlotReceivePieceItsNeighborShouldTurnFixed()
         {
@@ -71,6 +82,65 @@ namespace Tests
 
             slot.TurnFixedAllNeighborButOne(givenSlotSelectionServer);
             TestNeighborsAreFixedButGivenOne(slotNeighbors, givenSlotSelectionServer);
+        }
+
+        //TODO: definir o place do piece quando cria o piece a partir da factory
+        [Test]
+        public void PieceIsAddedToWinController()
+        {
+            int piecePlaceInGrid = 2;
+            (pieceDataSorter as StubPieceDataSorter).pieceData = new StubPieceData(piecePlaceInGrid);
+            int maximumPiecesToPlace = 1;
+            WinEventController winEventController = CreateWinEventController();
+            List<PiecePlaceInGrid> correctlyPositionedPieces = new List<PiecePlaceInGrid>();
+            WinController winController = CreateWinController(correctlyPositionedPieces, winEventController, maximumPiecesToPlace);
+            EmptyState emptyState = CreateEmptyState();
+            PieceDestinationController movableSlot = CreateSlot(winController, 1, 0, 1);
+            PieceDestinationController emptySlot = CreateSlot(winController, 2, 0, 2);
+            bool wasEventTriggered = false;
+            winEventController.AddListener(() => wasEventTriggered = true);
+
+            emptyState.ReceivePiece(emptySlot, movableSlot);
+
+            Assert.IsTrue(wasEventTriggered);
+        }
+
+        private WinController CreateWinController(List<PiecePlaceInGrid> correctlyPositionedPieces, WinEventController winEventController, int maximumPiecesToPlace)
+        {
+            return new WinControllerImplementation(correctlyPositionedPieces, winEventController, maximumPiecesToPlace);
+        }
+
+        private WinEventController CreateWinEventController()
+        {
+            return new WinEventControllerImplementation();
+        }
+
+        private PieceDestinationController CreateSlot(WinController winController)
+        {
+            GameObject slotObject = CreateSlotObject(winController);
+
+            return slotObject.GetComponent<PieceDestinationController>();
+        }
+
+        private PieceDestinationController CreateSlot(WinController winController, int placeInGrid, int row, int column)
+        {
+            GameObject slotObject = CreateSlotObject(winController);
+            slotObject.GetComponent<GridItemMover>().SetupRownAndColumn(placeInGrid, row, column);
+
+            return slotObject.GetComponent<PieceDestinationController>();
+        }
+
+        private GameObject CreateSlotObject(WinController winController)
+        {
+            StubNullItemNeighborRetriever itemNeighborRetriever = new StubNullItemNeighborRetriever();
+            GridItemFactory slotFactory = CreateGridItemFactory(itemNeighborRetriever, winController);
+            GameObject slotObject = slotFactory.Create();
+            return slotObject;
+        }
+
+        private EmptyState CreateEmptyState()
+        {
+            return new EmptyState();
         }
 
         private static void TestNeighborsAreFixedButGivenOne(List<GameObject> slotNeighbors, SlotSelectionServer givenSlotSelectionServer)
@@ -119,7 +189,7 @@ namespace Tests
         private Game.GridImplementation CreateGrid(int width, int height, float offset, Vector2 originPosition)
         {
             StubItemNeighborRetriever itemNeighborRetriever = CreateItemNeighborRetriever();
-            GridItemFactory gridItemFactory = CreateGridItemFactory(itemNeighborRetriever);
+            GridItemFactory gridItemFactory = CreateGridItemFactory(itemNeighborRetriever, new StubWinController());
             GridImplementation gridImplementation = new Game.GridImplementation(width, height, gridItemFactory, offset, originPosition);
 
             itemNeighborRetriever.Initialize(gridImplementation);
@@ -127,18 +197,18 @@ namespace Tests
             return gridImplementation;
         }
 
-        private GridItemFactory CreateGridItemFactory(ItemNeighborRetriever itemNeighborRetriever)
+        private GridItemFactory CreateGridItemFactory(ItemNeighborRetriever itemNeighborRetriever, WinController winController)
         {
             GameObject slotPrefab = LoadSlotPrefab();
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemFactory pieceFactory = CreatePieceFactory();
-            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
+            return new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever, winController);
         }
 
         private GridItemFactory CreatePieceFactory()
         {
             GameObject piecePrefab = LoadPiecePrefab();
-            return new PieceFactoryImplementation(piecePrefab);
+            return new PieceFactoryImplementation(piecePrefab, pieceDataSorter);
         }
 
         private GameObject LoadPiecePrefab()

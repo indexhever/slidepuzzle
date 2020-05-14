@@ -17,7 +17,7 @@ namespace Tests
             int initialGridItemColum = 2;
 
             GridItemMover gridItemMover = CreateGridItemMover();
-            gridItemMover.SetupRownAndColumn(initialGridItemRow, initialGridItemColum);
+            gridItemMover.SetupRownAndColumn(0, initialGridItemRow, initialGridItemColum);
             PieceImplementation piece = new PieceImplementation(gridItemMover);
 
             Assert.AreEqual(initialGridItemRow, piece.Row);
@@ -38,7 +38,7 @@ namespace Tests
             int row = 1;
             int column = 2;
             GridItemMover gridItemMover = CreateGridItemMover();
-            gridItemMover.SetupRownAndColumn(row, column);
+            gridItemMover.SetupRownAndColumn(0, row, column);
 
             Assert.AreEqual(row, gridItemMover.Row);
             Assert.AreEqual(column, gridItemMover.Column);

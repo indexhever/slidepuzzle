@@ -44,6 +44,8 @@ namespace Tests
 
         public Transform Transform => transform;
 
+        public int Place => 0;
+
         public List<GameObject> GetNeighbors()
         {
             return new List<GameObject>();
@@ -53,6 +55,11 @@ namespace Tests
         {
             Row = row;
             Column = column;
+        }
+
+        public void SetupRownAndColumn(int place, int row, int column)
+        {
+            SetupRownAndColumn(row, column);
         }
 
         public void SetWidthAndHeightInPixels(float widthInPixels, float heightInPixels)

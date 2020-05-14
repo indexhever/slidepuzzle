@@ -16,6 +16,8 @@ namespace Game
         {
             this.pieceData = pieceData;
             text.text = pieceData.Text;
+            GridItemMover gridItemMover = GetComponent<GridItemMover>();
+            gridItemMover.SetupRownAndColumn(pieceData.PlaceInGrid, 0, 0);
         }
     }
 }

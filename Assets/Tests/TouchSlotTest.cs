@@ -141,7 +141,7 @@ namespace Tests
         {
             GridItemMover pieceMover = CreatePieceMover();
             PieceTranslationController pieceTranslationController = CreatePieceTranslationController(pieceMover);
-            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover);
+            return new PieceDestinationControllerImplementation(pieceTranslationController, pieceMover, new StubWinController());
         }
 
         private PieceTranslationController CreatePieceTranslationController(GridItemMover pieceMover)
