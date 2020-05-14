@@ -51,7 +51,7 @@ namespace Tests
             SlotSelection slotSelection = CreateSlotSelection();
             GridItemFactory pieceFactory = CreatePieceFactory(); ;
 
-            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
+            return new SlotFactoryImplementation(slotObjectPrefab, slotSelection, pieceFactory, itemNeighborRetriever, new StubWinController());
         }
 
         private GridItemFactory CreatePieceFactory()

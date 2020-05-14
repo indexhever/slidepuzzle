@@ -17,9 +17,9 @@ namespace Game
         [SerializeField]
         private GridItemFactoryComponent gridItemFactoryComponent;
 
-        public int Width => grid.Width;
+        public int Width => width;
 
-        public int Height => grid.Height;
+        public int Height => height;
 
         public Vector2 Position => grid.Position;
 

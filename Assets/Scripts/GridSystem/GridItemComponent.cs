@@ -41,6 +41,8 @@ namespace Game
 
         public Transform Transform => transform;
 
+        public int Place { get; private set; }
+
         public void Construct(ItemNeighborRetriever itemNeighborRetriever)
         {
             this.itemNeighborRetriever = itemNeighborRetriever;
@@ -51,8 +53,9 @@ namespace Game
             return itemNeighborRetriever.GetItemNeighbors(this);
         }
 
-        public void SetupRownAndColumn(int row, int column)
+        public void SetupRownAndColumn(int place, int row, int column)
         {
+            Place = place;
             Row = row;
             Column = column;
         }

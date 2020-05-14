@@ -66,23 +66,25 @@ namespace Game
 
         private void CreateGridItems()
         {
+            int place = 0;
             for(int row = 0; row < Height; row++)
             {
                 for(int column = 0; column < Width; column++)
                 {
-                    CreateGridItemToRowAndColumn(column, row);
+                    CreateGridItemToPlaceRowAndColumn(place, column, row);
+                    place++;
                 }
             }
         }
 
-        private void CreateGridItemToRowAndColumn(int column, int row)
+        private void CreateGridItemToPlaceRowAndColumn(int place, int column, int row)
         {
             GameObject girdItemObject = gridItemFactory.Create();
             girdItemObject.name = row + "x" + column;
             GridItemMover gridItemMover = girdItemObject.GetComponent<GridItemMover>();
 
             gridItemMover.Position = positioningStrategy.GetGridItemPositionByRowAndColum(row, column);
-            gridItemMover.SetupRownAndColumn(row, column);
+            gridItemMover.SetupRownAndColumn(place, row, column);
             GridItemObjects.Add(girdItemObject);
         }
 

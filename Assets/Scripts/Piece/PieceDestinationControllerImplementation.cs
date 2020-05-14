@@ -13,6 +13,7 @@ namespace Game
 
         private PieceTranslationController pieceTranslationController;
         private GridItemMover slotGridItemMover;
+        private WinController winController;
 
         public PieceDestinationControllerImplementation()
         {
@@ -32,10 +33,11 @@ namespace Game
             SetFixed();
         }
 
-        public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController, GridItemMover slotGridItemMover)
+        public PieceDestinationControllerImplementation(PieceTranslationController pieceTranslationController, GridItemMover slotGridItemMover, WinController winController)
         {
             this.pieceTranslationController = pieceTranslationController;
             this.slotGridItemMover = slotGridItemMover;
+            this.winController = winController;
             //this.grid = grid;
             NULL_TRANSLATION_CONTROLLER = new NullPieceTranslationController();
             EMPTY_STATE = new EmptyState();
@@ -65,6 +67,11 @@ namespace Game
                 GameObject pieceObject = value;
                 pieceTranslationController = pieceObject.GetComponent<PieceTranslationController>();
                 pieceObject.transform.SetParent(slotGridItemMover.Transform);
+                PiecePlaceInGrid piecePlaceInGrid = pieceObject.GetComponent<PiecePlaceInGrid>();
+                if (piecePlaceInGrid.Place == slotGridItemMover.Place)
+                    winController.AddCorrectlyPositionedPiece(piecePlaceInGrid);
+                else
+                    winController.RemoveCorrectlyPositionedPiece(piecePlaceInGrid);
             }
         }
 

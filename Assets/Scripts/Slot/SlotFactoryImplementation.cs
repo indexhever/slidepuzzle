@@ -10,13 +10,15 @@ namespace Game
         private SlotSelection slotSelection;
         private GridItemFactory pieceFactory;
         private ItemNeighborRetriever itemNeighborRetriever;
+        private WinController winController;
 
-        public SlotFactoryImplementation(GameObject gridItemObjectPrefab, SlotSelection slotSelection, GridItemFactory pieceFactory, ItemNeighborRetriever itemNeighborRetriever)
+        public SlotFactoryImplementation(GameObject gridItemObjectPrefab, SlotSelection slotSelection, GridItemFactory pieceFactory, ItemNeighborRetriever itemNeighborRetriever, WinController winController)
         {
             this.gridItemObjectPrefab = gridItemObjectPrefab;
             this.slotSelection = slotSelection;
             this.pieceFactory = pieceFactory;
             this.itemNeighborRetriever = itemNeighborRetriever;
+            this.winController = winController;
 
             GridItem gridItem = gridItemObjectPrefab.GetComponent<GridItem>();
             GridItemWidthInUnit = gridItem.WidthInUnit;
@@ -45,7 +47,7 @@ namespace Game
             PieceTranslationControllerComponent pieceTranslationController = pieceObject.GetComponent<PieceTranslationControllerComponent>();
             GridItemComponent gridItemComponent = slotObject.GetComponent<GridItemComponent>();
             
-            pieceDestinationController.Construct(pieceTranslationController);
+            pieceDestinationController.Construct(pieceTranslationController, winController);
             gridItemComponent.Construct(itemNeighborRetriever);
 
             return slotObject;

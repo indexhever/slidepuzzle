@@ -16,7 +16,7 @@ namespace Tests
 
         public StubSlotFactory(GameObject slotPrefab, SlotSelection slotSelection, ItemNeighborRetriever itemNeighborRetriever)
         {
-            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever);
+            gridItemFactory = new SlotFactoryImplementation(slotPrefab, slotSelection, pieceFactory, itemNeighborRetriever, new StubWinController());
         }
 
         public GameObject Create()
@@ -31,7 +31,7 @@ namespace Tests
             PieceDestinationControllerComponent pieceDestinationController = slotObject.GetComponent<PieceDestinationControllerComponent>();
             PieceTranslationControllerComponent pieceTranslationController = pieceObject.GetComponent<PieceTranslationControllerComponent>();
 
-            pieceDestinationController.Construct(pieceTranslationController);
+            pieceDestinationController.Construct(pieceTranslationController, new StubWinController());
 
             return slotObject;
         }

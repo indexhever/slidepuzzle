@@ -41,9 +41,9 @@ namespace Game
 
         public PieceDestinationController PieceDestinationController => pieceDestinationController;
 
-        public void Construct(PieceTranslationController pieceTranslationController)
+        public void Construct(PieceTranslationController pieceTranslationController, WinController winController)
         {
-            pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController, gridItemComponent);
+            pieceDestinationController = new PieceDestinationControllerImplementation(pieceTranslationController, gridItemComponent, winController);
         }
 
         public bool CanMovePiece()
